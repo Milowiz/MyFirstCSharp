@@ -4,6 +4,8 @@ using System.Threading.Tasks.Dataflow;
 using System.IO;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.ComponentModel;
+using System.Collections.Immutable;
 
 namespace _00_Exercises
 {
@@ -21,7 +23,7 @@ namespace _00_Exercises
                             "                    __/ |\n" +
                             "                   |___/\n";
 
-            bool inputIsValid = true;
+            bool inputIsValid;
             int lives = 6;
             string input;
             string randomWord = GetRandomWordFromFile();
@@ -30,21 +32,21 @@ namespace _00_Exercises
             Console.Clear();
             Console.WriteLine(hangman);
             bool gameOver = false;
+            
             Console.WriteLine($"{randomWord}; {wordLength}; {underscoreWord};");
             do
-
             {
-
-
                 do
                 {
                     Console.WriteLine("Welcher Buchstabe kommt in diesem Wort vor?");
                     input = Console.ReadLine() ?? "";
                     inputIsValid = InputHandle(input);
+                    underscoreWord = TurnUnderScoreToWord(randomWord, underscoreWord, input);
+                    Console.WriteLine("{0}", string.Join(" ", underscoreWord.ToUpper()));
+                    Console.WriteLine($"{underscoreWord}");
                     if (inputIsValid == false)
                     {
                         Console.Write("Bitte nur einzelne Buchstaben benutzen!\n");
-
                     }
 
                 } while (inputIsValid == false);
@@ -61,17 +63,16 @@ namespace _00_Exercises
                         Console.WriteLine(HangmanDisplayStatus(lives));
                     }
                     Console.WriteLine(HangmanDisplayStatus(lives));
-                //Hangman
                 }
-            //  input
 
-            Console.WriteLine($"{randomWord}; {wordLength}; {underscoreWord};IsInWord{isInWord}");
+                Console.WriteLine($"{randomWord}; {wordLength}; {underscoreWord};IsInWord{isInWord}");
             }
-        while(gameOver == true);
+            while (gameOver == false);
+            Console.WriteLine($"Leider verloren!\n{HangmanDisplayStatus(lives)}");
         }
         private static string GetRandomWordFromFile()
         {
-            string filePath = Path.Combine(AppContext.BaseDirectory, "words.txt");
+            string filePath = Path.Combine(AppContext.BaseDirectory, "words.txt"); // Da daheim anderer Path in WSL in .csproj damit immer garanteiren, dass es im gleichen Verzeichnis ist
             var lines = File.ReadAllLines(filePath);
             var r = new Random();
             var randomLineNumber = r.Next(0, lines.Length - 1);
@@ -81,7 +82,7 @@ namespace _00_Exercises
         private static string TurnWordInUnderscores(int wordLength)
         {
             string underscoreWord = "";
-            for (int i = 0; i <= wordLength; i++)
+            for (int i = 0; i < wordLength; i++)
             {
                 underscoreWord += "_";
             }
@@ -119,27 +120,45 @@ namespace _00_Exercises
             }
             return false;
         }
+        private static string TurnUnderScoreToWord(string randomWord, string underscoreWord, string input)
+        {
+            randomWord = randomWord.ToLower();
+            char[] underscoreChar = underscoreWord.ToCharArray();
+            char[] randomWordChar = randomWord.ToCharArray();
+            input = input.ToLower();
+            char inputChar = char.Parse(input);
+            for (int i = 0; i < randomWordChar.Length; i++)
+            {
+                char currentChar = randomWord[i];
+                if (currentChar == inputChar)
+                {
+                    underscoreChar[i] = inputChar;
+                }
+            }
+            string updatedUnderscoreWord = new string(underscoreChar);
+            return updatedUnderscoreWord;
+        }
 
     private static string HangmanDisplayStatus(int lives)
         {
             
             switch (lives)
             {
-                case 6:
+                case 5:
                     return " +---+\n |   |\n     |\n     |\n     |\n     |\n=======";
 
-                case 5:
+                case 4:
                     return " +---+\n |   |\n O   |\n     |\n     |\n     |\n=======";
 
-                case 4:
+                case 3:
                     return " +---+\n |   |\n O   |\n |   |\n     |\n     |\n=======";
 
-                case 3:
-                    return "+---+\n |   |\n O   |\n/|   |\n     |\n     |\n=======";
                 case 2:
+                    return "+---+\n |   |\n O   |\n/|   |\n     |\n     |\n=======";
+                case 1:
                     return " +---+\n |   |\n O   |\n/|\\  |\n/    |\n     |\n=======";
 
-                case 1:
+                case 0:
                     return " +---+\n |   |\n O   |\n/|\\  |\n/ \\  |\n     |\n=======";   
             }
             return "false";
