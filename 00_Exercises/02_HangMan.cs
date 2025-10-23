@@ -32,7 +32,7 @@ namespace _00_Exercises
             Console.Clear();
             Console.WriteLine(hangman);
             bool gameOver = false;
-            
+            List<char> alreadyUsed = new List<char>();
             Console.WriteLine($"{randomWord}; {wordLength}; {underscoreWord};");
             do
             {
@@ -41,13 +41,16 @@ namespace _00_Exercises
                     Console.WriteLine("Welcher Buchstabe kommt in diesem Wort vor?");
                     input = Console.ReadLine() ?? "";
                     inputIsValid = InputHandle(input);
+                    CheckForDuplicateInput(input, alreadyUsed);
                     underscoreWord = TurnUnderScoreToWord(randomWord, underscoreWord, input);
                     Console.WriteLine("{0}", string.Join(" ", underscoreWord.ToUpper()));
                     Console.WriteLine($"{underscoreWord}");
+                    
                     if (inputIsValid == false)
                     {
                         Console.Write("Bitte nur einzelne Buchstaben benutzen!\n");
                     }
+                    
 
                 } while (inputIsValid == false);
                 bool isInWord = IsInWord(randomWord, input);
@@ -122,23 +125,37 @@ namespace _00_Exercises
         }
         private static string TurnUnderScoreToWord(string randomWord, string underscoreWord, string input)
         {
-            randomWord = randomWord.ToLower();
             char[] underscoreChar = underscoreWord.ToCharArray();
-            char[] randomWordChar = randomWord.ToCharArray();
-            input = input.ToLower();
-            char inputChar = char.Parse(input);
-            for (int i = 0; i < randomWordChar.Length; i++)
+            char inputChar = char.ToLower(input[0]);
+            for (int i = 0; i < randomWord.Length; i++)
             {
-                char currentChar = randomWord[i];
-                if (currentChar == inputChar)
+                if (char.ToLower(randomWord[i]) == inputChar)
                 {
                     underscoreChar[i] = inputChar;
                 }
             }
-            string updatedUnderscoreWord = new string(underscoreChar);
-            return updatedUnderscoreWord;
+            return new string(underscoreChar);
         }
+    private static List<char> CheckForDuplicateInput(string input, List<char> alreadyUsed)
+            {
+            char inputChar = char.ToLower(input[0]);
+            
+                if (alreadyUsed.Contains(inputChar))
+                {
 
+                Console.WriteLine($"{inputChar} wurde schon benutzt! Deine Versuche bisher waren: {string.Join(" ", alreadyUsed)}");
+                
+                }
+                else
+                {
+                alreadyUsed.Add(inputChar);
+                Console.WriteLine($"{inputChar} wurde hinzugefügt");
+                
+                }
+                return alreadyUsed;
+            }
+            
+        
     private static string HangmanDisplayStatus(int lives)
         {
             
@@ -154,7 +171,7 @@ namespace _00_Exercises
                     return " +---+\n |   |\n O   |\n |   |\n     |\n     |\n=======";
 
                 case 2:
-                    return "+---+\n |   |\n O   |\n/|   |\n     |\n     |\n=======";
+                    return " +---+\n |   |\n O   |\n/|   |\n     |\n     |\n=======";
                 case 1:
                     return " +---+\n |   |\n O   |\n/|\\  |\n/    |\n     |\n=======";
 
