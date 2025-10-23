@@ -12,3 +12,4 @@
 /home/thomas/development/myfirstC#/00_Exercises/obj/Debug/net9.0/00_Exercises.pdb
 /home/thomas/development/myfirstC#/00_Exercises/obj/Debug/net9.0/00_Exercises.genruntimeconfig.cache
 /home/thomas/development/myfirstC#/00_Exercises/obj/Debug/net9.0/ref/00_Exercises.dll
+/home/thomas/development/myfirstC#/00_Exercises/obj/Debug/net9.0/00_Exercises.sourcelink.json
