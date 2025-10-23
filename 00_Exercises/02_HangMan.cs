@@ -71,7 +71,8 @@ namespace _00_Exercises
         }
         private static string GetRandomWordFromFile()
         {
-            var lines = File.ReadAllLines("/home/thomas/development/myfirstC#/00_Exercises/words.txt");
+            string filePath = Path.Combine(AppContext.BaseDirectory, "words.txt");
+            var lines = File.ReadAllLines(filePath);
             var r = new Random();
             var randomLineNumber = r.Next(0, lines.Length - 1);
             var line = lines[randomLineNumber];
