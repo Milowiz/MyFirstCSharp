@@ -15,7 +15,6 @@ namespace _00_Exercises
                 int versuche = 0;
                 int inputNumber;
                 int randomNumber = GenerateNumber(); // Zahl generieren
-
                 do
                 {
                     inputNumber = NumberInput();
@@ -26,7 +25,6 @@ namespace _00_Exercises
                     }
                 }
                 while (isVerified);
-
                 //  versuche =  // Vergleichen, ob die gewählte Zahl mit der zufälligen übereinstimmt und mitzählen, wie viele Versuche man gebraucht hat
                 // versuche++;
                 GameWon(randomNumber, versuche); // Bei richtiger Antwort, Ausgabe der Gewinnnachricht und der Versuche wie oft man gebraucht hat

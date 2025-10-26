@@ -13,7 +13,7 @@ namespace _00_Exercises
     {
         public static void Run()
         {
-            
+
             string hangman = " _\n" +
                             "| |\n" +
                             "| |__   __ _ _ __   __ _ _ __ ___   __ _ _ __  \n" +
@@ -22,56 +22,76 @@ namespace _00_Exercises
                             "|_| |_|\\__,_|_| |_|\\__, |_| |_| |_|\\__,_|_| |_|\n" +
                             "                    __/ |\n" +
                             "                   |___/\n";
-
-            bool inputIsValid;
-            int lives = 6;
-            string input;
-            string randomWord = GetRandomWordFromFile();
-            int wordLength = randomWord.Length;
-            string underscoreWord = TurnWordInUnderscores(wordLength);
-            Console.Clear();
-            Console.WriteLine(hangman);
-            bool gameOver = false;
-            List<char> alreadyUsed = new List<char>();
-            Console.WriteLine($"{randomWord}; {wordLength}; {underscoreWord};");
-            do
+            bool playAgain = true;
+             
+            while (playAgain)
             {
-                do
+                Console.Clear();
+                string randomWord = GetRandomWordFromFile();
+                int lives = 7;
+                string underscoreWord = TurnWordInUnderscores(randomWord.Length);
+                List<char> alreadyUsed = new List<char>();
+                bool gameOver = false;
+                //Console.WriteLine($"{randomWord}; {randomWord.Length}; {underscoreWord};"); // Debug
+                while (!gameOver)
                 {
-                    Console.WriteLine("Welcher Buchstabe kommt in diesem Wort vor?");
-                    input = Console.ReadLine() ?? "";
-                    inputIsValid = InputHandle(input);
-                    CheckForDuplicateInput(input, alreadyUsed);
-                    underscoreWord = TurnUnderScoreToWord(randomWord, underscoreWord, input);
-                    Console.WriteLine("{0}", string.Join(" ", underscoreWord.ToUpper()));
-                    Console.WriteLine($"{underscoreWord}");
-                    
-                    if (inputIsValid == false)
+                    Console.Clear();
+                    Console.WriteLine(hangman);
+                    Console.WriteLine(HangmanDisplayStatus(lives));
+                    Console.WriteLine("Aktueller Stand: " + string.Join(" ", underscoreWord.ToUpper().ToCharArray()));
+                    Console.WriteLine($"Bereits verwendete Buchstaben: {string.Join(" ", alreadyUsed)}");
+                    Console.Write("Welcher Buchstabe kommt in diesem Wort vor? ");
+                    string input = Console.ReadLine() ?? "";
+                    if (!InputHandle(input))
                     {
-                        Console.Write("Bitte nur einzelne Buchstaben benutzen!\n");
-                    }
-                    
 
-                } while (inputIsValid == false);
-                bool isInWord = IsInWord(randomWord, input);
-                if (isInWord == false)
-                {
-                    if (lives == 0)
-                    {
-                        gameOver = true;
+                        Console.WriteLine("Bitte nur einzelne Buchstaben benutzen!");
+                        Thread.Sleep(1000);
+                        continue;
                     }
-                    else
+
+                    char inputChar = char.ToLower(input[0]);
+
+                    if (alreadyUsed.Contains(inputChar))
+                    {
+                        Console.Clear();
+                        Console.WriteLine($"{inputChar} wurde schon benutzt!");
+                        Thread.Sleep(500);
+                        continue;
+                    }
+                    alreadyUsed.Add(inputChar);
+
+                    if (!IsInWord(randomWord, inputChar))
                     {
                         lives--;
+                        Console.Clear();
+                        Console.Write("Leider falsch!");
                         Console.WriteLine(HangmanDisplayStatus(lives));
+                        Thread.Sleep(500);
+                        if (lives <= 0)
+                        {
+                            Console.Clear();
+                            Console.WriteLine(HangmanDisplayStatus(lives));
+                            Console.WriteLine($"\n Leider verloren! Das Wort war: {randomWord.ToUpper()}");
+                            gameOver = true;
+                        }
+                        continue;
                     }
+                    underscoreWord = TurnUnderScoreToWord(randomWord, underscoreWord, inputChar);
+                    Console.Clear();
+                    Console.WriteLine("Richtig !");
                     Console.WriteLine(HangmanDisplayStatus(lives));
+                    Thread.Sleep(500);
+                    if (!underscoreWord.Contains('_'))
+                    {
+                        Console.Clear();
+                        Console.WriteLine(HangmanDisplayStatus(lives));
+                        Console.WriteLine($"\nGlückwunsch! Das vollständige Wort lautet: {randomWord.ToUpper()}");
+                        gameOver = true;
+                    }  
                 }
-
-                Console.WriteLine($"{randomWord}; {wordLength}; {underscoreWord};IsInWord{isInWord}");
+                playAgain = GoAgain();
             }
-            while (gameOver == false);
-            Console.WriteLine($"Leider verloren!\n{HangmanDisplayStatus(lives)}");
         }
         private static string GetRandomWordFromFile()
         {
@@ -95,98 +115,79 @@ namespace _00_Exercises
 
         private static bool InputHandle(string input)
         {
-            if (input.Length >= 2 || input.Length == 0 || input == "")
+            if (input.Length != 1 || input == "")
             {
                 return false;
             }
-
-            foreach (char c in input)
-            {
-                if (char.IsLetter(c))
-                    return true;
-
-            }
-            return false;
+            return char.IsLetter(input[0]);
         }
 
-        private static bool IsInWord(string randomWord, string input)
+        private static bool IsInWord(string randomWord, char inputChar)
         {
-            char character = char.Parse(input);
-
-            foreach (char c in randomWord.ToLower())
-            {
-                if (character == c)
-                {
-                    return true;
-                }
-
-            }
-            return false;
+           return randomWord.ToLower().Contains(inputChar);
         }
-        private static string TurnUnderScoreToWord(string randomWord, string underscoreWord, string input)
+        private static string TurnUnderScoreToWord(string randomWord, string underscoreWord, char inputChar)
         {
-            char[] underscoreChar = underscoreWord.ToCharArray();
-            char inputChar = char.ToLower(input[0]);
+            var underscoreChar = underscoreWord.ToCharArray();
             for (int i = 0; i < randomWord.Length; i++)
             {
                 if (char.ToLower(randomWord[i]) == inputChar)
                 {
-                    underscoreChar[i] = inputChar;
+                    underscoreChar[i] = randomWord[i]; 
                 }
             }
             return new string(underscoreChar);
-        }
-    private static List<char> CheckForDuplicateInput(string input, List<char> alreadyUsed)
-            {
-            char inputChar = char.ToLower(input[0]);
-            
-                if (alreadyUsed.Contains(inputChar))
+        }    
+            private static bool GoAgain()
+        {
+            while(true)
+           {
+                Console.WriteLine("Möchtest du noch einmal spielen? \n (Y)es oder (N)o?");
+                string againInput = Console.ReadLine() ?? "";
+                if (againInput == "y" || againInput == "Y")
                 {
-
-                Console.WriteLine($"{inputChar} wurde schon benutzt! Deine Versuche bisher waren: {string.Join(" ", alreadyUsed)}");
-                
+                    Console.Clear();
+                    return true;
+                }
+                else if (againInput == "n" || againInput == "N")
+                {
+                    Console.Clear();
+                    return false;
                 }
                 else
                 {
-                alreadyUsed.Add(inputChar);
-                Console.WriteLine($"{inputChar} wurde hinzugefügt");
-                
+                    Console.Clear();
+                    Console.WriteLine("Bitte nur mit Y oder N Antworten!");
                 }
-                return alreadyUsed;
             }
-            
-        
+
+        }            
     private static string HangmanDisplayStatus(int lives)
         {
             
             switch (lives)
             {
+                case 6:
+                    return " \n +---+\n |   |\n     |\n     |\n     |\n     |\n=======";
+
                 case 5:
-                    return " +---+\n |   |\n     |\n     |\n     |\n     |\n=======";
+                    return " \n +---+\n |   |\n O   |\n     |\n     |\n     |\n=======";
 
                 case 4:
-                    return " +---+\n |   |\n O   |\n     |\n     |\n     |\n=======";
+                    return " \n +---+\n |   |\n O   |\n |   |\n     |\n     |\n=======";
 
                 case 3:
-                    return " +---+\n |   |\n O   |\n |   |\n     |\n     |\n=======";
-
+                    return " \n +---+\n |   |\n O   |\n/|   |\n     |\n     |\n=======";
                 case 2:
-                    return " +---+\n |   |\n O   |\n/|   |\n     |\n     |\n=======";
+                    return " \n +---+\n |   |\n O   |\n/|\\  |\n     |\n     |\n=======";                    
                 case 1:
-                    return " +---+\n |   |\n O   |\n/|\\  |\n/    |\n     |\n=======";
+                    return " \n +---+\n |   |\n O   |\n/|\\  |\n/    |\n     |\n=======";
 
                 case 0:
-                    return " +---+\n |   |\n O   |\n/|\\  |\n/ \\  |\n     |\n=======";   
+                    return " \n +---+\n |   |\n O   |\n/|\\  |\n/ \\  |\n     |\n=======";
+                default:
+                    return "";
             }
-            return "false";
         }
     }
 }
-
-// for(char c in randomWord)
-// if(c == input)
-// poistion[] = []
-
-
-// for(char c in underScore)
-// underScoreWord[position] = input
