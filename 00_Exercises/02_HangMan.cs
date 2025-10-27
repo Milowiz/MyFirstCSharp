@@ -138,7 +138,7 @@ namespace _00_Exercises
             }
             return new string(underscoreChar);
         }    
-            private static bool GoAgain()
+        private static bool GoAgain()
         {
             while(true)
            {
@@ -162,7 +162,7 @@ namespace _00_Exercises
             }
 
         }            
-    private static string HangmanDisplayStatus(int lives)
+        private static string HangmanDisplayStatus(int lives)
         {
             
             switch (lives)

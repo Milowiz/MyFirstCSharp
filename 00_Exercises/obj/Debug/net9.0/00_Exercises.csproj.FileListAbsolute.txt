@@ -29,3 +29,4 @@
 /home/thomas/Arbeit/git/MyFirstCSharp/00_Exercises/obj/Debug/net9.0/00_Exercises.genruntimeconfig.cache
 /home/thomas/Arbeit/git/MyFirstCSharp/00_Exercises/obj/Debug/net9.0/ref/00_Exercises.dll
 /home/thomas/Arbeit/git/MyFirstCSharp/00_Exercises/bin/Debug/net9.0/words.txt
+/home/thomas/development/myfirstC#/00_Exercises/bin/Debug/net9.0/words.txt
