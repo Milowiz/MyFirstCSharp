@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/thomas/development/myfirstC#/00_Exercises/00_Exercises.csproj": {}
+    "/home/thomas/Arbeit/git/MyFirstCSharp/00_Exercises/00_Exercises.csproj": {}
   },
   "projects": {
-    "/home/thomas/development/myfirstC#/00_Exercises/00_Exercises.csproj": {
+    "/home/thomas/Arbeit/git/MyFirstCSharp/00_Exercises/00_Exercises.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/thomas/development/myfirstC#/00_Exercises/00_Exercises.csproj",
+        "projectUniqueName": "/home/thomas/Arbeit/git/MyFirstCSharp/00_Exercises/00_Exercises.csproj",
         "projectName": "00_Exercises",
-        "projectPath": "/home/thomas/development/myfirstC#/00_Exercises/00_Exercises.csproj",
+        "projectPath": "/home/thomas/Arbeit/git/MyFirstCSharp/00_Exercises/00_Exercises.csproj",
         "packagesPath": "/home/thomas/.nuget/packages/",
-        "outputPath": "/home/thomas/development/myfirstC#/00_Exercises/obj/",
+        "outputPath": "/home/thomas/Arbeit/git/MyFirstCSharp/00_Exercises/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/thomas/.nuget/NuGet/NuGet.Config"
@@ -20,7 +20,6 @@
           "net9.0"
         ],
         "sources": {
-          "/usr/lib/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -39,7 +38,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net9.0": {
@@ -60,7 +59,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/9.0.110/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/home/thomas/.dotnet/sdk/9.0.306/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
