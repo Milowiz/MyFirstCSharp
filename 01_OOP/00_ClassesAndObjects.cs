@@ -5,7 +5,7 @@ namespace _01_OOP
 
     public class ClassesAndObjects
     {
-        public static void Run()
+        public void Run()
         {
             // keyword "new" instanziert ein Objekt 
             Car myCar = new Car("Nissan","GTR32",9000);
@@ -21,9 +21,19 @@ namespace _01_OOP
     }
     class Car
     {
-        public string Brand { get; private set; }
+        public static string Brand { get; private set; }
         public string Model { get; private set; }
         public ushort Power { get; private set; }
+
+        public Car()
+        {
+
+            System.Console.WriteLine("Auto wird hergestellt!");
+        }
+        ~Car()
+        {
+            System.Console.WriteLine("Auto wird verschrottet!");
+        }
         // Attribute (Variablen die einem Objekt zugehörig sind); Klassenattribute werden mit Großbuchstbaen begonnen
         public float weight;
         public string colour;
@@ -66,6 +76,11 @@ namespace _01_OOP
         public ushort GetPower()
         {
             return this.power;
+        }
+
+        public static void GetAllAttributes()
+        {
+            System.Console.WriteLine($"{Brand}");
         }
     }
 
