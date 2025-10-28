@@ -7,6 +7,7 @@ using System.Net.NetworkInformation;
 using System.ComponentModel;
 using System.Collections.Immutable;
 using System.Globalization;
+using System.Dynamic;
 
 namespace _01_OOP
 {
@@ -14,8 +15,6 @@ namespace _01_OOP
     {
         public static void Run()
         {
-            
-
             string hangman = " _\n" +
                             "| |\n" +
                             "| |__   __ _ _ __   __ _ _ __ ___   __ _ _ __  \n" +
@@ -25,7 +24,6 @@ namespace _01_OOP
                             "                    __/ |\n" +
                             "                   |___/\n";
             bool playAgain = true;
-             
             while (playAgain)
             {
                 Console.Clear();
@@ -44,8 +42,6 @@ namespace _01_OOP
                     char inputChar = word.GetValidCharInput(alreadyUsed,hangman,lives,underscoreWord);
 
                     gameOver = word.HandleWrongGuess(inputChar, ref lives, randomWord);
-                    
-
                     underscoreWord = word.TurnUnderScoreToWord(randomWord, underscoreWord, inputChar);
                     if (output.DisplayRightAnswer(lives, underscoreWord, randomWord) == true) 
                     {
@@ -58,7 +54,9 @@ namespace _01_OOP
         public class Output
         {
 
-            public string HangmanStatus;
+            public string HangmanStatus { get; set; }
+            public bool RightAnswer{ get; set; }
+            
 
             public void DisplayStatus(string hangman, int lives, string underscoreWord, List<char> alreadyUsed)
             {
@@ -113,11 +111,19 @@ namespace _01_OOP
             {
                 HangmanStatus = HangmanDisplayStatus(lives);
             }
+            public Output(int lives, string underscoreWord, string randomWord)
+            {
+                RightAnswer = DisplayRightAnswer(lives,underscoreWord,randomWord);
+            }
         }
         public class Word
         {
             public string RandomWordFromFile { get; private set; }
             public string UnderscoreWord { get; set; }
+            public char ValidCharInput { get; set; }
+            public bool IsWrongGuess { get; set; }
+            public bool IsInRandomWord;
+            public string UnderScoreToWord { get; set; }
 
             Output output = new Output();
             public string GetRandomWordFromFile()
@@ -214,10 +220,27 @@ namespace _01_OOP
             {
                 RandomWordFromFile = GetRandomWordFromFile();
             }
+            public Word(List<char> alreadyUsed, string hangman, int lives, string underscoreWord)
+            {
+                ValidCharInput = GetValidCharInput(alreadyUsed, hangman, lives, underscoreWord);
+            }
+            public Word(char inputChar, ref int lives, string randomWord)
+            {
+                IsWrongGuess = HandleWrongGuess(inputChar, ref lives, randomWord);
+            }
+            public Word(string randomWord, char inputChar)
+            {
+                IsInRandomWord = IsInWord(randomWord, inputChar);
+            }
+            public Word(string randomWord, string underscoreWord, char inputChar)
+            {
+                UnderScoreToWord = TurnUnderScoreToWord(randomWord, underscoreWord, inputChar);
+            }
 
         }
         public class GameState
         {
+            public bool PlayAgain{ get; set; }
 
             public bool GoAgain()
             {
@@ -227,20 +250,24 @@ namespace _01_OOP
                     string againInput = Console.ReadLine() ?? "";
                     if (againInput == "y" || againInput == "Y")
                     {
-                    Console.Clear();
-                    return true;
+                        Console.Clear();
+                        return true;
                     }
                     else if (againInput == "n" || againInput == "N")
                     {
-                    Console.Clear();
-                    return false;
+                        Console.Clear();
+                        return false;
                     }
                     else
                     {
-                    Console.Clear();
-                    Console.WriteLine("Bitte nur mit Y oder N Antworten!");
+                        Console.Clear();
+                        Console.WriteLine("Bitte nur mit Y oder N Antworten!");
                     }
                 }
+            }
+            public GameState()
+            {
+                PlayAgain = GoAgain();
             }     
         }
     }
