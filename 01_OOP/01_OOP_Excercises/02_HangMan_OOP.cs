@@ -14,7 +14,7 @@ namespace _01_OOP
     {
         public static void Run()
         {
-            Word word = new Word();
+            
 
             string hangman = " _\n" +
                             "| |\n" +
@@ -29,6 +29,7 @@ namespace _01_OOP
             while (playAgain)
             {
                 Console.Clear();
+                Word word = new Word();
                 string randomWord = word.GetRandomWordFromFile();
                 int lives = 7;
                 string underscoreWord = word.TurnWordInUnderscores(randomWord.Length);
@@ -37,12 +38,11 @@ namespace _01_OOP
                 //Console.WriteLine($"{randomWord}; {randomWord.Length}; {underscoreWord};"); // Debug
                 while (!gameOver)
                 {
-                    DisplayStatus(hangman, lives, underscoreWord, alreadyUsed);
-                  
-                    string input = Console.ReadLine() ?? ""; // Input
-                    char inputChar = char.ToLower(input[0]);
-                    GetValidCharInput(alreadyUsed, input);
-                    gameOver = HandleWrongGuess(inputChar, lives, randomWord);
+                    DisplayStatus(hangman, lives, underscoreWord, alreadyUsed);                
+                    char inputChar = GetValidCharInput(alreadyUsed,hangman,lives,underscoreWord);
+
+                    gameOver = HandleWrongGuess(inputChar, ref lives, randomWord);
+                    
 
                     underscoreWord = TurnUnderScoreToWord(randomWord, underscoreWord, inputChar);
                     if (DisplayRightAnswer(lives, underscoreWord, randomWord) == true) 
@@ -54,33 +54,9 @@ namespace _01_OOP
             }
         }
 
-        // private static string InputHandle(string input)
-        // {
-        //     char inputChar = char.ToLower(input[0]);
-        //     while (true)
-        //     {
-        //         if (input.Length != 1 || input == "")
-        //         {
-        //             Console.WriteLine("Bitte nur einzelne Buchstaben benutzen!");
-        //             Thread.Sleep(1000);
-        //             continue;
-        //         }
-        //         else
-        //         {
-
-        //             return input;
-        //         }
-        //     }
-
-
-        // }
-
         private static bool DisplayRightAnswer(int lives, string underscoreWord, string randomWord)
         {
-                Console.Clear();
-                Console.WriteLine("Richtig !");
-                Console.WriteLine(HangmanDisplayStatus(lives));
-                Thread.Sleep(500);
+                
                 if (!underscoreWord.Contains('_'))
                 {
                     Console.Clear();
@@ -90,7 +66,7 @@ namespace _01_OOP
                 }
                 return false; 
         }
-        private static bool HandleWrongGuess(char inputChar, int lives, string randomWord)
+        private static bool HandleWrongGuess(char inputChar,ref int lives, string randomWord)
         {
             if (!IsInWord(randomWord, inputChar))
             {
@@ -150,19 +126,28 @@ namespace _01_OOP
             }
 
         }
-        private static char GetValidCharInput(List<char> alreadyUsed, string input)
+        private static char GetValidCharInput(List<char> alreadyUsed,string hangman,int lives, string underscoreWord)
         {
             while (true)
             {
                 Console.Write("Welcher Buchstabe kommt in diesem Wort vor? ");
-
+                string input = Console.ReadLine() ?? "";
                 if (string.IsNullOrWhiteSpace(input)) continue;
+                
+                if (input.Length != 1 || !char.IsLetter(input[0]))
+                {
+                    DisplayStatus(hangman, lives, underscoreWord, alreadyUsed);
+                    Console.WriteLine("\nBitte gib genau einen Buchstaben ein!");
+                    Thread.Sleep(1000);
+                    continue;
+                }
+
 
                 char inputChar = char.ToLower(input[0]);
 
                 if (alreadyUsed.Contains(inputChar))
                 {
-                    Console.Clear();
+                    DisplayStatus(hangman, lives, underscoreWord, alreadyUsed);
                     Console.WriteLine($"{inputChar} wurde schon benutzt!");
                     Thread.Sleep(500);
                     continue;
@@ -218,7 +203,7 @@ namespace _01_OOP
                 string filePath = Path.Combine(AppContext.BaseDirectory, "words.txt"); // Da daheim anderer Path in WSL in .csproj damit immer garanteiren, dass es im gleichen Verzeichnis ist
                 var lines = File.ReadAllLines(filePath);
                 var r = new Random();
-                var randomLineNumber = r.Next(0, lines.Length - 1);
+                var randomLineNumber = r.Next(0, lines.Length);
                 var line = lines[randomLineNumber];
                 return line;
             }
