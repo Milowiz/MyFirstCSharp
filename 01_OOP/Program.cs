@@ -1,10 +1,12 @@
-﻿namespace _01_OOP_Exercises
+﻿using _01_OOP_Exercises;
+
+namespace _01_OOP
 {
     class Program
     {
         static void Main(string[] args)
         {
-            _01_GuessingNumber_OOP.Run();
+            _02_Hangman_OOP.Run();
         }
     }
 }

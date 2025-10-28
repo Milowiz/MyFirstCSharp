@@ -167,7 +167,6 @@ namespace _01_OOP_Exercises
                     Console.WriteLine("Bitte nur mit Y oder N Antworten!");
                 }
             }
-
         }
         public GameState(int randomNumber, int versuche)
         {
@@ -177,30 +176,7 @@ namespace _01_OOP_Exercises
         {
             Again = GoAgain();
         }
-
     }    
 }
 
-    // class super
-    // {
-    //     public super()
-    //     {
 
-    //     }
-
-    //     private void AskForInput()
-    //     {
-    //         System.Console.WriteLine("Test");
-    //     }
-
-    //     private void ReadInput()
-    //     {
-    //         Console.ReadLine()
-    //     }
-
-    //     private void ValidateInput()
-    //     {
-            
-    //     }
-    // }
-}
