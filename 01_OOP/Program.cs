@@ -6,7 +6,7 @@ namespace _01_OOP
     {
         static void Main(string[] args)
         {
-            _02_Hangman_OOP.Run();
+            _01_GuessingNumber_OOP.Run();
         }
     }
 }

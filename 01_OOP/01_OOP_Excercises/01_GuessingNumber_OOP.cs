@@ -9,37 +9,17 @@ namespace _01_OOP
     {
         public static void Run()
         {
-            NumberHandler inputHandler = new NumberHandler();
+
+            
             GameState gameState = new GameState();
+            gameState.GameStart();
 
-            bool again;
-            bool isVerified;
-            Console.Clear();
-            do
-            {
-                int versuche = 0;
-                int inputNumber;
-
-                int randomNumber = inputHandler.GenerateNumber();
-                // Zahl generieren
-                do
-                {
-                    inputNumber = inputHandler.NumberInput();
-                    isVerified = inputHandler.NumberVerification(inputNumber, randomNumber);
-                    if (inputHandler.InvalidNumberRange(inputNumber) == true)
-                    {
-                        versuche++;
-                    }
-                }
-                while (isVerified);
-                //  versuche =  // Vergleichen, ob die gewählte Zahl mit der zufälligen übereinstimmt und mitzählen, wie viele Versuche man gebraucht hat
-                // versuche++;
-                gameState.GameWon(randomNumber, versuche); // Bei richtiger Antwort, Ausgabe der Gewinnnachricht und der Versuche wie oft man gebraucht hat
-                again = gameState.GoAgain();
-            }
-            while (again);
+            
         }
     }
+
+
+    
     public class NumberHandler
     {
         public int ValidatedNumber { get; private set; }
@@ -61,7 +41,7 @@ namespace _01_OOP
                 return validatedNumber;
             }
         }
-        public bool NumberVerification(int inputNumber, int randomNumber)
+        private bool NumberVerification(int inputNumber, int randomNumber)
         {
 
             while (true)
@@ -89,7 +69,7 @@ namespace _01_OOP
             }
 
         }
-        public int NumberInput()
+        private int NumberInput()
         {
 
             Console.WriteLine("Bitte geben Sie eine Zahl zwischen 1 und 10 ein!");
@@ -97,7 +77,7 @@ namespace _01_OOP
             return ValidatedInput(number);
 
         }
-        public bool InvalidNumberRange(int validatedNumber)
+        private bool InvalidNumberRange(int validatedNumber)
         {
             if (validatedNumber <= 0 || validatedNumber > 10)
             {
@@ -110,7 +90,7 @@ namespace _01_OOP
                 return true;
             }
         }
-        public int GenerateNumber()
+        private static int GenerateNumber()
         {
             Random rnd = new Random();
             int randomNumber = rnd.Next(1, 11);
@@ -138,13 +118,13 @@ namespace _01_OOP
     }
     public class GameState
     {
-        public void GameWon(int randomNumber, int versuche)
+        public static void GameWon(int randomNumber, int versuche)
         {
             Console.Clear();
             System.Console.WriteLine($"Richtig! Die Zahl war {randomNumber} und du hast {versuche} Versuche gebraucht!\n");
 
         }
-        public bool GoAgain()
+        public static bool GoAgain()
         {
             while (true)
             {
@@ -167,14 +147,47 @@ namespace _01_OOP
                 }
             }
         }
+         public void GameStart()
+            {
+                NumberHandler inputHandler = new NumberHandler();
+                bool again;
+                bool isVerified;
+                Console.Clear();
+                do
+                {
+                    int versuche = 0;
+                    int inputNumber;
+                    int randomNumber = inputHandler.GenerateNumber();
+
+                    do
+                    {
+                        inputNumber = inputHandler.NumberInput();
+                        isVerified = inputHandler.NumberVerification(inputNumber, randomNumber);
+                        if (inputHandler.InvalidNumberRange(inputNumber) == true)
+                        {
+                            versuche++;
+                        }
+                    }
+                    while (isVerified);
+
+                    GameWon(randomNumber, versuche);
+                    again = GoAgain();
+                }
+                while (again);
+
         // public GameState(int randomNumber, int versuche)
         // {
         //     GameWon(randomNumber, versuche);
         // }
-        public GameState()
+    }
+        public class Game
         {
-            
-        }
+
+
+           
+            }
+        
+        
     }    
 }
 

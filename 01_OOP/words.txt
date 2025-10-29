@@ -16,7 +16,6 @@ Computer
 Fisch
 Effekt
 Jacke
-Nomen196
 Logik
 Jubel
 Mittel
@@ -29,10 +28,8 @@ Jagd
 Umfang
 Glaube
 Verstand
-Nomen189
 Jahrgang
 Wasser
-Nomen198
 Teller
 Energie
 Boden
@@ -40,7 +37,6 @@ Tanz
 Zustand
 Hafen
 Punkt
-Nomen190
 Papier
 Schnee
 Wert
@@ -57,7 +53,6 @@ Besen
 Zirkus
 Nadel
 Tisch
-Nomen200
 Nacht
 Radio
 Verein
@@ -99,7 +94,6 @@ Wegweiser
 Zins
 Vorrat
 Quelle
-Nomen191
 Ziel
 Mensch
 Preis
@@ -107,7 +101,6 @@ Norm
 Dose
 Markt
 Ohr
-Nomen194
 Niveau
 Hoffnung
 Album
@@ -118,9 +111,7 @@ Ball
 Urlaub
 Hunger
 Griff
-Nomen193
 Lohn
-Nomen188
 Vertrag
 Vorteil
 Posten
@@ -177,10 +168,8 @@ Inhalt
 Ufer
 Objekt
 Arzt
-Nomen199
 Unfall
 Fels
-Nomen197
 Sinn
 Esel
 Joker
@@ -189,10 +178,8 @@ Lampe
 Haken
 Acker
 Signal
-Nomen195
 Nutzen
 Quote
-Nomen192
 Jahr
 Stuhl
 Inhaber
