@@ -267,7 +267,7 @@ namespace _01_OOP
             }
             public GameState()
             {
-                PlayAgain = GoAgain();
+                
             }     
         }
     }
