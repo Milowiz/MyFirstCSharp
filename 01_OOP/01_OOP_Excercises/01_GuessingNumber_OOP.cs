@@ -3,7 +3,7 @@ using System.Dynamic;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace _01_OOP_Exercises
+namespace _01_OOP
 {
     public class _01_GuessingNumber_OOP
     {
@@ -138,7 +138,6 @@ namespace _01_OOP_Exercises
     }
     public class GameState
     {
-        public bool Again { get; set; }
         public void GameWon(int randomNumber, int versuche)
         {
             Console.Clear();
@@ -168,13 +167,13 @@ namespace _01_OOP_Exercises
                 }
             }
         }
-        public GameState(int randomNumber, int versuche)
-        {
-            GameWon(randomNumber, versuche);
-        }
+        // public GameState(int randomNumber, int versuche)
+        // {
+        //     GameWon(randomNumber, versuche);
+        // }
         public GameState()
         {
-            Again = GoAgain();
+            
         }
     }    
 }
