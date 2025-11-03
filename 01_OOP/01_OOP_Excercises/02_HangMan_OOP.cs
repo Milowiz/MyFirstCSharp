@@ -18,6 +18,9 @@ namespace _01_OOP
             Game game = new Game();
             game.GameStart();
         }
+        /// <summary>
+        /// Handles the displaying output methods 
+        /// </summary>
         public class Output
         {
             // public string HangmanStatus { get; set; }
@@ -34,6 +37,13 @@ namespace _01_OOP
             // {
             //     RightAnswer = DisplayRightAnswer(lives, underscoreWord, randomWord);
             // }
+            /// <summary>
+            /// Shows a summary of all values from the player in the Console
+            /// </summary>
+            /// <param name="hangman">Shows the Logo of hangman</param>
+            /// <param name="lives">How many lives are still left for the player</param>
+            /// <param name="underscoreWord">Displays the word converted to underscores with and the characters that are changed back to letters and are in the word</param>
+            /// <param name="alreadyUsed">Saves the character inputs from the player to avoid multiple same inputs</param>
             public static void DisplayStatus(string hangman, int lives, string underscoreWord, List<char> alreadyUsed)
             {
                 Console.Clear();
@@ -42,6 +52,11 @@ namespace _01_OOP
                 Console.WriteLine("Aktueller Stand: " + string.Join(" ", underscoreWord.ToUpper().ToCharArray()));
                 Console.WriteLine($"Bereits verwendete Buchstaben: {string.Join(" ", alreadyUsed)}");
             }
+            /// <summary>
+            /// Displays different states in ASCII-Formated Hangman pictures
+            /// </summary>
+            /// <param name="lives">How many lives the user still has</param>
+            /// <returns>Returns each different state of the switch case depending on lives</returns>
             public static string HangmanDisplayStatus(int lives)
             {
                 switch (lives)
@@ -68,6 +83,13 @@ namespace _01_OOP
                         return "";
                 }
             }
+            /// <summary>
+            /// Shows the output if the word was guessed
+            /// </summary>
+            /// <param name="lives">How many lives are left from the player</param>
+            /// <param name="underscoreWord">Displays the word converted to underscores with and the characters that are changed back to letters and are in the word</param>
+            /// <param name="randomWord">The random word chosen from the file</param>
+            /// <returns>Returns true if there is no _ left in the word, otherwise false</returns>
             public static bool DisplayRightAnswer(int lives, string underscoreWord, string randomWord)
             {
                 if (!underscoreWord.Contains('_'))
@@ -80,6 +102,9 @@ namespace _01_OOP
                 return false;
             }
         }
+        /// <summary>
+        /// Handles functions that depend on the word itself
+        /// </summary>
         public class Word
         {
             //public string RandomWordFromFile { get; private set; }
@@ -89,6 +114,11 @@ namespace _01_OOP
             // public bool IsInRandomWord;
             // public string UnderScoreToWord { get; set; }
             //Game game = new Game();
+
+            /// <summary>
+            /// Get a random word from word.txt if word.txt exists on any path
+            /// </summary>
+            /// <returns>Returns a random word from word.txt</returns>
             public static string GetRandomWordFromFile()
             {
                 string filePath = Path.Combine(AppContext.BaseDirectory, "words.txt"); // Da daheim anderer Path in WSL in .csproj damit immer garanteiren, dass es im gleichen Verzeichnis ist
@@ -98,6 +128,13 @@ namespace _01_OOP
                 var line = lines[randomLineNumber];
                 return line;
             }
+            /// <summary>
+            ///  Takes the randomWord and creates the underScoreword with the same length as randomWord
+            /// </summary>
+            /// <param name="randomWord">Takes the randomWord from the word.txt</param>
+            /// <param name="underscoreWord">Takes the already exisiting underscoreWord and changes the character back from the underscore that are correct</param>
+            /// <param name="inputChar">Takes the player input</param>
+            /// <returns>Gives back the updated underScoreword</returns>
             public static string TurnUnderScoreToWord(string randomWord, string underscoreWord, char inputChar)
             {
                 var underscoreChar = underscoreWord.ToCharArray();
@@ -110,6 +147,14 @@ namespace _01_OOP
                 }
                 return new string(underscoreChar);
             }
+            /// <summary>
+            /// Checks if the player input is only 1 character and nothing else than a letter
+            /// </summary>
+            /// <param name="alreadyUsed">To check if the character was already used</param>
+            /// <param name="hangman">Displays the hangman logo</param>
+            /// <param name="lives">How many lives are left from the player</param>
+            /// <param name="underscoreWord">Displays the word converted to underscores with and the characters that are changed back to letters and are in the word</param>
+            /// <returns>Gives back the validated player input</returns>
             public static char GetValidCharInput(List<char> alreadyUsed, string hangman, int lives, string underscoreWord)
             {
                 while (true)
@@ -136,10 +181,10 @@ namespace _01_OOP
                     alreadyUsed.Add(inputChar);
                     return inputChar;
                 }
-            }        
+            }
             public Word()
             {
-               // RandomWordFromFile = GetRandomWordFromFile();
+                // RandomWordFromFile = GetRandomWordFromFile();
             }
             // public Word(List<char> alreadyUsed, string hangman, int lives, string underscoreWord)
             // {
@@ -159,18 +204,31 @@ namespace _01_OOP
             // }
 
         }
+        /// <summary>
+        /// Handles the main game logic
+        /// </summary>
         public class Game
         {
             //public bool PlayAgain { get; set; }
             public string RandomWord { get; set; }
             public string WordToUnderscore { get; set; }
-            public int Lives{ get; set; }
+            public int Lives { get; set; }
+            /// <summary>
+            /// Sets the start paramters for the instance
+            /// </summary>
             public Game()
             {
                 RandomWord = Word.GetRandomWordFromFile();
                 Lives = 7;
                 WordToUnderscore = TurnWordInUnderscores(RandomWord.Length);
             }
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="inputChar"></param>
+            /// <param name="lives"></param>
+            /// <param name="randomWord"></param>
+            /// <returns></returns>
             public bool HandleWrongGuess(char inputChar, int lives, string randomWord)
             {
                 if (!IsInWord(inputChar))
@@ -244,8 +302,8 @@ namespace _01_OOP
                                 "                   |___/\n";
                 bool playAgain = true;
                 while (playAgain)
-                {                    
-                    Console.Clear();   
+                {
+                    Console.Clear();
                     //string randomWord = Word.GetRandomWordFromFile();                  
                     string underscoreWord = WordToUnderscore;
                     List<char> alreadyUsed = new List<char>();
@@ -254,7 +312,7 @@ namespace _01_OOP
                     while (!gameOver)
                     {
                         Output.DisplayStatus(hangman, Lives, underscoreWord, alreadyUsed);
-                        char inputChar = Word.GetValidCharInput(alreadyUsed, hangman, Lives, underscoreWord);              
+                        char inputChar = Word.GetValidCharInput(alreadyUsed, hangman, Lives, underscoreWord);
                         gameOver = HandleWrongGuess(inputChar, Lives, RandomWord);
                         underscoreWord = Word.TurnUnderScoreToWord(RandomWord, underscoreWord, inputChar);
                         if (Output.DisplayRightAnswer(Lives, underscoreWord, RandomWord) == true)
