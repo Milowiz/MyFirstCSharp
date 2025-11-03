@@ -27,7 +27,7 @@ namespace _01_OOP
         public int InputNumber { get; set; }
         public bool IsNumberInRange { get; set; }
         public int GeneratedNumber{ get; set; }
-        public int ValidatedInput(string inputNumber)
+        public static int ValidatedInput(string inputNumber)
         {
 
             if (!int.TryParse(inputNumber, out int validatedNumber))
@@ -41,7 +41,7 @@ namespace _01_OOP
                 return validatedNumber;
             }
         }
-        private bool NumberVerification(int inputNumber, int randomNumber)
+        internal static bool NumberVerification(int inputNumber, int randomNumber)
         {
 
             while (true)
@@ -69,15 +69,15 @@ namespace _01_OOP
             }
 
         }
-        private int NumberInput()
+        internal static int NumberInput()
         {
 
             Console.WriteLine("Bitte geben Sie eine Zahl zwischen 1 und 10 ein!");
             string number = Console.ReadLine() ?? "";
-            return ValidatedInput(number);
+            return NumberHandler.ValidatedInput(number);
 
         }
-        private bool InvalidNumberRange(int validatedNumber)
+        internal static bool InvalidNumberRange(int validatedNumber)
         {
             if (validatedNumber <= 0 || validatedNumber > 10)
             {
@@ -90,7 +90,7 @@ namespace _01_OOP
                 return true;
             }
         }
-        private static int GenerateNumber()
+        internal static int GenerateNumber()
         {
             Random rnd = new Random();
             int randomNumber = rnd.Next(1, 11);
@@ -157,13 +157,14 @@ namespace _01_OOP
                 {
                     int versuche = 0;
                     int inputNumber;
-                    int randomNumber = inputHandler.GenerateNumber();
+                    int randomNumber = NumberHandler.GenerateNumber();
+                    
 
                     do
                     {
-                        inputNumber = inputHandler.NumberInput();
-                        isVerified = inputHandler.NumberVerification(inputNumber, randomNumber);
-                        if (inputHandler.InvalidNumberRange(inputNumber) == true)
+                        inputNumber = NumberHandler.NumberInput();
+                        isVerified = NumberHandler.NumberVerification(inputNumber, randomNumber);
+                        if (NumberHandler.InvalidNumberRange(inputNumber) == true)
                         {
                             versuche++;
                         }
