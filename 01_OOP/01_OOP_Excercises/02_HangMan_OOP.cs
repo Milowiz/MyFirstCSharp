@@ -15,41 +15,7 @@ namespace _01_OOP
     {
         public static void Run()
         {
-            string hangman = " _\n" +
-                            "| |\n" +
-                            "| |__   __ _ _ __   __ _ _ __ ___   __ _ _ __  \n" +
-                            "| '_ \\ / _` | '_ \\ / _` | '_ ` _ \\ / _` | '_ \\ \n" +
-                            "| | | | (_| | | | | (_| | | | | | | (_| | | | |\n" +
-                            "|_| |_|\\__,_|_| |_|\\__, |_| |_| |_|\\__,_|_| |_|\n" +
-                            "                    __/ |\n" +
-                            "                   |___/\n";
-            bool playAgain = true;
-            while (playAgain)
-            {
-                Console.Clear();
-                Word word = new Word();
-                Output output = new Output();
-                GameState gameState = new GameState();
-                string randomWord = word.GetRandomWordFromFile();
-                int lives = 7;
-                string underscoreWord = word.TurnWordInUnderscores(randomWord.Length);
-                List<char> alreadyUsed = new List<char>();
-                bool gameOver = false;
-                //Console.WriteLine($"{randomWord}; {randomWord.Length}; {underscoreWord};"); // Debug
-                while (!gameOver)
-                {
-                    output.DisplayStatus(hangman, lives, underscoreWord, alreadyUsed);                
-                    char inputChar = word.GetValidCharInput(alreadyUsed,hangman,lives,underscoreWord);
-
-                    gameOver = word.HandleWrongGuess(inputChar, ref lives, randomWord);
-                    underscoreWord = word.TurnUnderScoreToWord(randomWord, underscoreWord, inputChar);
-                    if (output.DisplayRightAnswer(lives, underscoreWord, randomWord) == true) 
-                    {
-                        gameOver = true;
-                    }
-                }
-                playAgain = gameState.GoAgain();
-            }
+            
         }
         public class Output
         {
@@ -240,7 +206,12 @@ namespace _01_OOP
         }
         public class GameState
         {
-            public bool PlayAgain{ get; set; }
+            public bool PlayAgain { get; set; }
+            public string RandomWord { get; set; }
+            public GameState()
+            {
+                
+            }
 
             public bool GoAgain()
             {
@@ -265,10 +236,50 @@ namespace _01_OOP
                     }
                 }
             }
-            public GameState()
+            public void GameStart()
+
             {
                 
-            }     
+                
+            string hangman = " _\n" +
+                            "| |\n" +
+                            "| |__   __ _ _ __   __ _ _ __ ___   __ _ _ __  \n" +
+                            "| '_ \\ / _` | '_ \\ / _` | '_ ` _ \\ / _` | '_ \\ \n" +
+                            "| | | | (_| | | | | (_| | | | | | | (_| | | | |\n" +
+                            "|_| |_|\\__,_|_| |_|\\__, |_| |_| |_|\\__,_|_| |_|\n" +
+                            "                    __/ |\n" +
+                            "                   |___/\n";
+            bool playAgain = true;
+            while (playAgain)
+                {
+                
+                Console.Clear();
+                Word word = new Word();
+                Output output = new Output();
+                GameState gameState = new GameState();
+                string randomWord = word.GetRandomWordFromFile();
+                int lives = 7;
+                string underscoreWord = word.TurnWordInUnderscores(randomWord.Length);
+                List<char> alreadyUsed = new List<char>();
+                bool gameOver = false;
+                //Console.WriteLine($"{randomWord}; {randomWord.Length}; {underscoreWord};"); // Debug
+                while (!gameOver)
+                {
+                    output.DisplayStatus(hangman, lives, underscoreWord, alreadyUsed);                
+                    char inputChar = word.GetValidCharInput(alreadyUsed,hangman,lives,underscoreWord);
+
+                    gameOver = word.HandleWrongGuess(inputChar, ref lives, randomWord);
+                    underscoreWord = word.TurnUnderScoreToWord(randomWord, underscoreWord, inputChar);
+                    if (output.DisplayRightAnswer(lives, underscoreWord, randomWord) == true) 
+                    {
+                        gameOver = true;
+                    }
+                }
+                playAgain = gameState.GoAgain();
+            }
+            }
+
+     
         }
     }
 }
