@@ -141,7 +141,6 @@ namespace _01_OOP
                     again = GoAgain();
                 }
                 while (again);
-
         // public GameState(int randomNumber, int versuche)
         // {
         //     GameWon(randomNumber, versuche);
