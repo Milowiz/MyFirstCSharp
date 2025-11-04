@@ -9,12 +9,12 @@ namespace Player
     public static class Player
     {
 
-        public bool True { get; set; }
         // public Game{
         //     True = True;
         // }
         public static void DoIt()
         {
+            System.Console.WriteLine("Player");
         }
     
     }
