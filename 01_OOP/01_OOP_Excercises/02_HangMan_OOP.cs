@@ -15,8 +15,11 @@ namespace _01_OOP
     {
         public static void Run()
         {
-            Game game = new Game();
-            game.GameStart();
+            do
+            {
+                Game game = new Game();
+                game.GameStart();
+            } while (Game.GoAgain());
         }
         /// <summary>
         /// Handles the displaying output methods 
@@ -169,9 +172,10 @@ namespace _01_OOP
         /// </summary>
         public class Game
         {
-            public string RandomWord { get; set; }
-            public string WordToUnderscore { get; set; }
-            public int Lives { get; set; }
+            private string RandomWord { get; set; }
+            private string WordToUnderscore { get; set; }
+            private int Lives { get; set; }
+            //public static bool PlayAgain { get; set; }
             /// <summary>
             /// Sets the start paramters for the instance
             /// </summary>
@@ -188,11 +192,11 @@ namespace _01_OOP
             /// <param name="lives">How many lives are left from the player</param>
             /// <param name="randomWord">Takes the random Word from the word.txt</param>
             /// <returns></returns>
-            public bool HandleWrongGuess(char inputChar, int lives, string randomWord)
+            private bool HandleWrongGuess(char inputChar, int lives, string randomWord)
             {
                 if (!IsInWord(inputChar))
                 {
-                    Lives = DecrementLive();
+                    DecrementLive();
                     Console.Clear();
                     Console.Write("Leider falsch!");
                     Console.WriteLine(Output.HangmanDisplayStatus(Lives));
@@ -212,17 +216,16 @@ namespace _01_OOP
             /// Decreases the Attribute Lives by 1
             /// </summary>
             /// <returns>Returns the updated Attribute Lives</returns>
-            public int DecrementLive()
+            private void DecrementLive()
             {
                 Lives--;
-                return Lives;
             }
             /// <summary>
             /// Takes the length of the random word chosen and gives back the new string with the same amount of characters as underscores
             /// </summary>
             /// <param name="wordLength">The amount of characters the randomword.length has</param>
             /// <returns>Returns the same amount of underscores as the word has characters</returns>
-            public static string TurnWordInUnderscores(int wordLength)
+            private static string TurnWordInUnderscores(int wordLength)
             {
                 string underscoreWord = "";
                 for (int i = 0; i < wordLength; i++)
@@ -231,15 +234,17 @@ namespace _01_OOP
                 }
                 return underscoreWord;
             }
+
             /// <summary>
             /// Checks if the randomWord contains the letter given by the player
             /// </summary>
             /// <param name="inputChar">Takes the player input</param>
             /// <returns>Returns true if there is the playerInput character in the randomWord</returns>
-            public bool IsInWord(char inputChar)
+            private bool IsInWord(char inputChar)
             {
                 return RandomWord.ToLower().Contains(inputChar);
             }
+
             /// <summary>
             /// Asks if the player wants to start the game again
             /// </summary>
@@ -253,6 +258,7 @@ namespace _01_OOP
                     if (againInput == "y" || againInput == "Y")
                     {
                         Console.Clear();
+
                         return true;
                     }
                     else if (againInput == "n" || againInput == "N")
@@ -267,6 +273,7 @@ namespace _01_OOP
                     }
                 }
             }
+
             /// <summary>
             /// The main gameloop which starts and handles the game
             /// </summary>
@@ -280,26 +287,22 @@ namespace _01_OOP
                                 "|_| |_|\\__,_|_| |_|\\__, |_| |_| |_|\\__,_|_| |_|\n" +
                                 "                    __/ |\n" +
                                 "                   |___/\n";
-                bool playAgain = true;
-                while (playAgain)
+
+                Console.Clear();
+                string underscoreWord = WordToUnderscore;
+                List<char> alreadyUsed = new List<char>();
+                bool gameOver = false;
+                //Console.WriteLine($"{randomWord}; {randomWord.Length}; {underscoreWord};"); // Debug
+                while (!gameOver)
                 {
-                    Console.Clear();                  
-                    string underscoreWord = WordToUnderscore;
-                    List<char> alreadyUsed = new List<char>();
-                    bool gameOver = false;
-                    //Console.WriteLine($"{randomWord}; {randomWord.Length}; {underscoreWord};"); // Debug
-                    while (!gameOver)
+                    Output.DisplayStatus(hangman, Lives, underscoreWord, alreadyUsed);
+                    char inputChar = Word.GetValidCharInput(alreadyUsed, hangman, Lives, underscoreWord);
+                    gameOver = HandleWrongGuess(inputChar, Lives, RandomWord);
+                    underscoreWord = Word.TurnUnderScoreToWord(RandomWord, underscoreWord, inputChar);
+                    if (Output.DisplayRightAnswer(Lives, underscoreWord, RandomWord) == true)
                     {
-                        Output.DisplayStatus(hangman, Lives, underscoreWord, alreadyUsed);
-                        char inputChar = Word.GetValidCharInput(alreadyUsed, hangman, Lives, underscoreWord);
-                        gameOver = HandleWrongGuess(inputChar, Lives, RandomWord);
-                        underscoreWord = Word.TurnUnderScoreToWord(RandomWord, underscoreWord, inputChar);
-                        if (Output.DisplayRightAnswer(Lives, underscoreWord, RandomWord) == true)
-                        {
-                            gameOver = true;
-                        }
+                        gameOver = true;
                     }
-                    playAgain = GoAgain();
                 }
             }
         }
