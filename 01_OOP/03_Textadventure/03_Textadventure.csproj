@@ -7,5 +7,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
+<ItemGroup>
+  <Compile Include="Classes\Game.cs" />
+  <Compile Include="Classes\Player.cs" />
+  <Compile Include="Textadventure.cs" />
+</ItemGroup>
 </Project>

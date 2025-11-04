@@ -4,18 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace _03_Textadventure
+namespace Player
 {
-    public class Game
+    public static class Player
     {
 
         public bool True { get; set; }
-        public Game{
-            True = True;
-        }
-        private void Do()
+        // public Game{
+        //     True = True;
+        // }
+        public static void DoIt()
         {
-
         }
     
     }
