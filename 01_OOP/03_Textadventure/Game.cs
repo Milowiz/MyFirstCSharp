@@ -8,10 +8,15 @@ namespace _03_Textadventure
 {
     public class Game
     {
-        public Game()
+
+        public bool True { get; set; }
+        public Game{
+            True = True;
+        }
+        private void Do()
         {
 
-                public bool True { get; set; }
         }
+    
     }
 }
