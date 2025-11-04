@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace Game
+namespace Classes
 {
-    public static class Game
+    public class Game
     {
         public static void Do()
         {
