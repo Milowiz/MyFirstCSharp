@@ -36,7 +36,7 @@ namespace _02_OOP._00_Exercises
             public HangmanGame()
             {
                 Player = new Player();
-                WordToGuess = ChooseRandomWordFromFile("./Files/Hangman-Wordlist.txt").ToLower();
+                WordToGuess = ChooseRandomWordFromFile().ToLower();
                 CreateWordState();
             }
 
