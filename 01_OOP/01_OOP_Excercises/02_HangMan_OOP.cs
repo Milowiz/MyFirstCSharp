@@ -23,20 +23,6 @@ namespace _01_OOP
         /// </summary>
         public class Output
         {
-            // public string HangmanStatus { get; set; }
-            // public bool RightAnswer { get; set; }
-            // public Output()
-            // {
-
-            // }
-            // public Output(int lives)
-            // {
-            //     HangmanStatus = HangmanDisplayStatus(lives);
-            // }
-            // public Output(int lives, string underscoreWord, string randomWord)
-            // {
-            //     RightAnswer = DisplayRightAnswer(lives, underscoreWord, randomWord);
-            // }
             /// <summary>
             /// Shows a summary of all values from the player in the Console
             /// </summary>
@@ -107,14 +93,6 @@ namespace _01_OOP
         /// </summary>
         public class Word
         {
-            //public string RandomWordFromFile { get; private set; }
-            // public string UnderscoreWord { get; set; }
-            // public char ValidCharInput { get; set; }
-            // public bool IsWrongGuess { get; set; }
-            // public bool IsInRandomWord;
-            // public string UnderScoreToWord { get; set; }
-            //Game game = new Game();
-
             /// <summary>
             /// Get a random word from word.txt if word.txt exists on any path
             /// </summary>
@@ -131,7 +109,7 @@ namespace _01_OOP
             /// <summary>
             ///  Takes the randomWord and creates the underScoreword with the same length as randomWord
             /// </summary>
-            /// <param name="randomWord">Takes the randomWord from the word.txt</param>
+            /// <param name="randomWord">Takes the random Word from the word.txt</param>
             /// <param name="underscoreWord">Takes the already exisiting underscoreWord and changes the character back from the underscore that are correct</param>
             /// <param name="inputChar">Takes the player input</param>
             /// <returns>Gives back the updated underScoreword</returns>
@@ -182,34 +160,15 @@ namespace _01_OOP
                     return inputChar;
                 }
             }
-            public Word()
-            {
-                // RandomWordFromFile = GetRandomWordFromFile();
-            }
-            // public Word(List<char> alreadyUsed, string hangman, int lives, string underscoreWord)
-            // {
-            //     ValidCharInput = GetValidCharInput(alreadyUsed, hangman, lives, underscoreWord);
-            // }
-            // public Word(char inputChar, ref int lives, string randomWord)
-            // {
-            //     IsWrongGuess = HandleWrongGuess(inputChar, ref lives, randomWord);
-            // }
-            // public Word(string randomWord, char inputChar)
-            // {
-            //     IsInRandomWord = IsInWord(randomWord, inputChar);
-            // }
-            // public Word(string randomWord, string underscoreWord, char inputChar)
-            // {
-            //     UnderScoreToWord = TurnUnderScoreToWord(randomWord, underscoreWord, inputChar);
-            // }
-
+            /// <summary>
+            /// Empty constructor for Word to be able to create an object without errors
+            /// </summary>
         }
         /// <summary>
         /// Handles the main game logic
         /// </summary>
         public class Game
         {
-            //public bool PlayAgain { get; set; }
             public string RandomWord { get; set; }
             public string WordToUnderscore { get; set; }
             public int Lives { get; set; }
@@ -223,11 +182,11 @@ namespace _01_OOP
                 WordToUnderscore = TurnWordInUnderscores(RandomWord.Length);
             }
             /// <summary>
-            /// 
+            /// Handles if the guess was wrong and ends the game if the lives are 0
             /// </summary>
-            /// <param name="inputChar"></param>
-            /// <param name="lives"></param>
-            /// <param name="randomWord"></param>
+            /// <param name="inputChar">Takes the player input</param>
+            /// <param name="lives">How many lives are left from the player</param>
+            /// <param name="randomWord">Takes the random Word from the word.txt</param>
             /// <returns></returns>
             public bool HandleWrongGuess(char inputChar, int lives, string randomWord)
             {
@@ -249,11 +208,20 @@ namespace _01_OOP
                 }
                 return false;
             }
+            /// <summary>
+            /// Decreases the Attribute Lives by 1
+            /// </summary>
+            /// <returns>Returns the updated Attribute Lives</returns>
             public int DecrementLive()
             {
                 Lives--;
                 return Lives;
             }
+            /// <summary>
+            /// Takes the length of the random word chosen and gives back the new string with the same amount of characters as underscores
+            /// </summary>
+            /// <param name="wordLength">The amount of characters the randomword.length has</param>
+            /// <returns>Returns the same amount of underscores as the word has characters</returns>
             public static string TurnWordInUnderscores(int wordLength)
             {
                 string underscoreWord = "";
@@ -263,10 +231,19 @@ namespace _01_OOP
                 }
                 return underscoreWord;
             }
+            /// <summary>
+            /// Checks if the randomWord contains the letter given by the player
+            /// </summary>
+            /// <param name="inputChar">Takes the player input</param>
+            /// <returns>Returns true if there is the playerInput character in the randomWord</returns>
             public bool IsInWord(char inputChar)
             {
                 return RandomWord.ToLower().Contains(inputChar);
             }
+            /// <summary>
+            /// Asks if the player wants to start the game again
+            /// </summary>
+            /// <returns>Returns true if y or Y is pressed py the player and ends by n or N and has a check that only valid answers are possible</returns>
             public static bool GoAgain()
             {
                 while (true)
@@ -290,6 +267,9 @@ namespace _01_OOP
                     }
                 }
             }
+            /// <summary>
+            /// The main gameloop which starts and handles the game
+            /// </summary>
             public void GameStart()
             {
                 string hangman = " _\n" +
@@ -303,8 +283,7 @@ namespace _01_OOP
                 bool playAgain = true;
                 while (playAgain)
                 {
-                    Console.Clear();
-                    //string randomWord = Word.GetRandomWordFromFile();                  
+                    Console.Clear();                  
                     string underscoreWord = WordToUnderscore;
                     List<char> alreadyUsed = new List<char>();
                     bool gameOver = false;
