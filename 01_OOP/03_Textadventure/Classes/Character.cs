@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Classes
 {
-    public static class Player
+    public static class Character
     {
 
         // public Game{
@@ -16,6 +16,6 @@ namespace Classes
         {
             System.Console.WriteLine("Player");
         }
-    
+
     }
 }

@@ -1,0 +1,33 @@
+{
+    "C++ main template":{
+        "prefix": "cppmain",
+        "body": [
+            "#include <iostream>",
+            "",
+            "using namespace std;",
+            "",
+            "int main()",
+            "{",
+            "",
+            "    return 0;",
+            "}"
+        ],
+        "description": "Basic C++ main function template"
+    },
+
+
+
+    "CSharp main template":{
+        "prefix": "csharpmain",
+        "body": [
+"namespace <Namespacename>",
+"{",
+    "public class <ClassName>",
+    "{",
+    " ",
+    "}",
+"}"
+        ],
+        "description": "Basic CSharp main function template"
+    }
+}

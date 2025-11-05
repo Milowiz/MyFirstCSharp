@@ -6,7 +6,7 @@ namespace _03_Textadventure
         public static void Run()
         {
             Game.Do();
-            Player.DoIt();
+            Character.DoIt();
         }
     }
 }
