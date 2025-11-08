@@ -15,7 +15,7 @@ namespace NPC
         string Race { get; set; }
         string[] InteractiveOptions { get; set; }
 
-        string[] Dialog { get; set; }
+        public string[] Dialog { get; set; }
         public NPC(ushort maxLives, ushort currentLives, string[] inventory, ushort damage, string name, string damageType, string defenseType, string race, string[] interactiveOptions, string[] dialog)
         : base(maxLives, currentLives, inventory, damage, name, damageType, defenseType)
         {
@@ -39,7 +39,20 @@ namespace NPC
         public Friendly(ushort maxLives, ushort currentLives, string[] inventory, ushort damage, string name, string damageType, string defenseType, string race, string[] interactiveOptions, string[] dialog)
         : base(maxLives, currentLives, inventory, damage, name, damageType, defenseType, race, interactiveOptions, dialog)
         {
-
+            //Dialog = new string[] { "Essen", "Trinken", "Maoam kauen" };
+        }
+        public void Talk()
+        {
+            //string[] dialog = ["Das", "ist", "super"];
+            // Alien alien = new Alien(0,0,[],0,"Timmy","","","Vulkan",[],Dialog);
+            
+            int playerInput;
+            for (int i = 0; i < Dialog.Length; i++)
+            {
+                Console.WriteLine($"{i + 1}. {Dialog[i]}");
+            }
+            Console.WriteLine("Wie möchtest du weiter vorgehen?");
+            playerInput = int.Parse(Console.ReadLine() ?? "");
         }
     }
     /// <summary>
@@ -108,6 +121,7 @@ namespace NPC
         {
             Price = price;
             Room = room;
+            Dialog = new string[] { "Handeln", "Bestehlen", "Einen Obulus geben" };
         }
 
     }
@@ -116,7 +130,7 @@ namespace NPC
         public Princess(ushort maxLives, ushort currentLives, string[] inventory, ushort damage, string name, string damageType, string defenseType, string race, string[] interactiveOptions, string[] dialog)
         : base(maxLives, currentLives, inventory, damage, name, damageType, defenseType, race, interactiveOptions, dialog)
         {
-
+            Dialog = new string[] { "Füttern", "Bürsten", "Baden" };
         }
 
     }
@@ -125,19 +139,9 @@ namespace NPC
         public Alien(ushort maxLives, ushort currentLives, string[] inventory, ushort damage, string name, string damageType, string defenseType, string race, string[] interactiveOptions, string[] dialog)
         : base(maxLives, currentLives, inventory, damage, name, damageType, defenseType, race, interactiveOptions, dialog)
         {
-           dialog[] = [""] 
-        } 
-        public static void Talk()
-        {
-            string[] dialog = ["Das", "ist", "super"];
-            int playerInput;
-            for(int i = 0; i < dialog.Length; i++)
-            {
-                Console.WriteLine($"{i}. {dialog[i]}");
-                Console.WriteLine("Wie möchtest du weiter vorgehen?");
-                playerInput = int.Parse(Console.ReadLine() ?? "");
-            }
+            
         }
+
     }
 
 
