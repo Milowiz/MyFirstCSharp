@@ -4,10 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace Classes
+namespace Entities
 {
-    public class Character
+    public class BaseEntity
     {
+
         ushort MaxLives { get; set; }
         ushort CurrentLives { get; set; }
         string[] Inventory { get; set; }
@@ -15,7 +16,7 @@ namespace Classes
         string Name { get; set; }
         string DamageType{ get; set; }
         string DefenseType { get; set; }
-        public Character(ushort maxLives, ushort currentLives, string[] inventory, ushort damage, string name, string damageType, string defenseType)
+        public BaseEntity(ushort maxLives, ushort currentLives, string[] inventory, ushort damage, string name, string damageType, string defenseType)
         {
             MaxLives = maxLives;
             CurrentLives = currentLives;
