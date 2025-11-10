@@ -11,11 +11,12 @@ namespace GameEngine
     {
         string CurrentRoom { get; set; }
         string[] DialogOptions { get; set; }
-        
+
         public BaseGame(string currentRoom, string[] dialogOptions)
         {
             CurrentRoom = currentRoom;
             DialogOptions = dialogOptions;
         }
+        
     }
 }

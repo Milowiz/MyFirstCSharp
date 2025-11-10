@@ -33,10 +33,15 @@ namespace Rooms
             for (int i = 0; i < To.Length; i++)
             {
                 Console.WriteLine($"{i + 1}. {To[i]}");
+                
             }
             Console.WriteLine("In welchen Raum möchtest du gehen?");
             playerInput = int.Parse(Console.ReadLine() ?? "");
-            return To;
+            if (playerInput ==)
+            {
+                string playersChoice = To[i];
+                return playersChoice;
+            }
         }
     }
 
