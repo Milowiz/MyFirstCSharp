@@ -17,9 +17,9 @@ namespace _03_Textadventure
             // BaseRoom baseRoom = new BaseRoom("", [""], false, false);
             CursedCastleCourtyard ccc = new CursedCastleCourtyard([""], false, false);
             MainHall mh = new MainHall([""], false, false);
-            string[] options = mh.AskForRoom();
+            string options = mh.AskForRoom();
 
-            string[] options2 = ccc.AskForRoom();
+            string options2 = ccc.AskForRoom();
             Console.WriteLine($"{string.Join(", ", options)}{string.Join(", ",options2)}");
 
             // alien.Talk();

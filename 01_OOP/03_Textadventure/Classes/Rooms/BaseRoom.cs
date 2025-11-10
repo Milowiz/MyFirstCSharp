@@ -27,21 +27,27 @@ namespace Rooms
             Console.WriteLine($"Du befindest dich in Raum: {ccc.RoomName}");
             return ccc.RoomName;
         }
-        public string[] AskForRoom()
+        public string AskForRoom()
         {
-            int playerInput;
+            
+            int dialogChoice;
             for (int i = 0; i < To.Length; i++)
             {
-                Console.WriteLine($"{i + 1}. {To[i]}");
-                
+                Console.WriteLine($"{i + 1}. {To[i]}");                
             }
             Console.WriteLine("In welchen Raum möchtest du gehen?");
-            playerInput = int.Parse(Console.ReadLine() ?? "");
-            if (playerInput ==)
+            string playerInput = Console.ReadLine();
+            if (int.TryParse(playerInput, out int choice))
             {
-                string playersChoice = To[i];
-                return playersChoice;
+                int index = choice - 1;
+
+                if (index >= 0 && index < To.Length)
+                {
+                    return To[index];
+                }
             }
+            Console.WriteLine("Ungültige Auswahl!");
+            return null;
         }
     }
 
