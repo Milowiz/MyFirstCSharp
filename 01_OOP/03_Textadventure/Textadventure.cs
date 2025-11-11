@@ -2,7 +2,6 @@ using System.Security.Cryptography;
 using Entities;
 using GameEngine;
 using Items;
-using Entities;
 using Rooms;
 namespace _03_Textadventure
 {
@@ -14,26 +13,29 @@ namespace _03_Textadventure
             BaseItem items = new BaseItem([]);
             Stone stone = new Stone([""], 0, 0);
             Sword sword = new Sword([""], "");
+            Lever lever = new Lever([""], [""], [""]);
+            HealPotion healPotion = new HealPotion([""], 2, 10);
             game.CreateMap();
-            string nextRoomName;
+
             // Alien alien = new Alien(0, 0, [], 0, "Timmy", "", "", "Vulkan", [], []);
             // Vendor vendor = new Vendor(0, 0, [], 0, "Timmy", "", "", "Vulkan", [], [], 0, []);
             // Princess princess = new Princess(0, 0, [], 0, "Timmy", "", "", "Vulkan", [], []);
             // BaseRoom baseRoom = new BaseRoom("", [""], false, false);
             // CursedCastleCourtyard ccc = new CursedCastleCourtyard([""], false, false);
             // MainHall mh = new MainHall([""], false, false);
-            string itemName = sword.ItemName;
-            int price = stone.Price;
-            int damage = sword.Damage;
-            stone.Use();
+            string itemName = lever.ItemName;
+            int price = lever.Price;
+            //int damage = lever.Damage;
+            lever.IsUsed = true;
+            int healAmount = healPotion.HealAmount;
+            System.Console.WriteLine($"{itemName}; {price};{healAmount}");
 
-            System.Console.WriteLine($"{itemName}; {price}; {damage}");
-           
-           
-           
-           
-           // Move through World put in PlayerCharacter
-           // BaseRoom currentRoom = game.Map["Entrance"];
+
+
+
+            // Move through World put in PlayerCharacter
+            //string nextRoomName;
+            // BaseRoom currentRoom = game.Map["Entrance"];
             // Console.WriteLine("Du bist im Raum: " + currentRoom.GetType().Name);
             // while (true)
             // {
@@ -57,8 +59,8 @@ namespace _03_Textadventure
             // string options = mh.AskForRoom();
 
             // string options2 = ccc.AskForRoom();
-            
-            
+
+
             //Console.WriteLine($"{string.Join(", ", options)}{string.Join(", ",options2)}");
 
             // alien.Talk();
@@ -66,8 +68,8 @@ namespace _03_Textadventure
             // princess.Talk();
 
             //Alien alien = new Alien();
-            
-            
+
+
 
         }
     }

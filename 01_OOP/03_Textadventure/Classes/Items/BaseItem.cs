@@ -22,7 +22,14 @@ namespace Items
         
         public virtual void Use()
         {
-            IsUsed = true;
+            if (!IsUsed)
+            {
+                IsUsed = true;
+            }
+            else
+            {
+                System.Console.WriteLine($"{ItemName} wurde bereits benutzt!");
+            }
         }
 
     }

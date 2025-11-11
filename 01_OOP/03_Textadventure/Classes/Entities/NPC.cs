@@ -24,11 +24,7 @@ namespace Entities
         }
     }
 
-    public class Stats
-    {
-        
-    }
-
+    
     /// <summary>
     /// Friendly NPCs parent class
     /// </summary>

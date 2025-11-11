@@ -30,8 +30,16 @@ namespace Items
         }
         public override void Use()
         {
-            IsUsed = true;
-            System.Console.WriteLine("You activated the lever and something happened!");
+
+            if (!IsUsed)
+            {
+                IsUsed = true;
+                System.Console.WriteLine("You activated the lever and something happened!");
+            }
+            else
+            {
+                System.Console.WriteLine($"You used {ItemName} already!");
+            }
         }
     }
     public class KeyHole : Interactable
@@ -45,8 +53,15 @@ namespace Items
         }
         public override void Use()
         {
-            IsUsed = true;
-            System.Console.WriteLine("You put the key in the keyhole and something happened!");
+            if (!IsUsed)
+            {
+                IsUsed = true;
+                System.Console.WriteLine("You put the key in the keyhole and something happened!");
+            }
+            else
+            {
+                System.Console.WriteLine($"You used {ItemName} already!");
+            }
         }
     }
     public class Barrel : Interactable
@@ -59,8 +74,15 @@ namespace Items
         }
         public override void Use()
         {
-            IsUsed = true;
-            System.Console.WriteLine("You were strong enough to move the Barrel and you see something like an entrance!");
+            if (!IsUsed)
+            {
+                IsUsed = true;
+                System.Console.WriteLine("You put the key in the keyhole and something happened!");
+            }
+            else
+            {
+                System.Console.WriteLine($"You used {ItemName} already!");
+            }
         }
     }
     public class WallTorch : Interactable
@@ -73,8 +95,15 @@ namespace Items
         }
         public override void Use()
         {
-            IsUsed = true;
-            System.Console.WriteLine("You lit the torch and something happened!");
+            if (!IsUsed)
+            {
+                IsUsed = true;
+                System.Console.WriteLine("You lit the torch and something happened!");
+            }
+            else
+            {
+                System.Console.WriteLine($"You used {ItemName} already!");
+            }
         }
     }
     public class GoldenCup : Interactable
@@ -87,8 +116,15 @@ namespace Items
         }
         public override void Use()
         {
-            IsUsed = true;
-            System.Console.WriteLine("You hit the Golden Cup and you see how something happened!");
+            if (!IsUsed)
+            {
+                IsUsed = true;
+                System.Console.WriteLine("You hit the Golden Cup and you see how something happened!");
+            }
+            else
+            {
+                System.Console.WriteLine($"You used {ItemName} already!");
+            }
         }
     }
     public class FinalChest : Interactable
@@ -101,8 +137,15 @@ namespace Items
         }
         public override void Use()
         {
-            IsUsed = true;
-            System.Console.WriteLine("You won the game !");
+            if (!IsUsed)
+            {
+                IsUsed = true;
+                System.Console.WriteLine("You won the game !");
+            }
+            else
+            {
+                System.Console.WriteLine($"You used {ItemName} already!");
+            }
         }
     }
 }

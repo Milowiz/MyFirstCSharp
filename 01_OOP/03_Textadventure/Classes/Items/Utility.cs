@@ -22,6 +22,7 @@ namespace Items
     {
         public override string ItemName => new string("Health Potion");
         public override ushort Price => 5;
+        public ushort HealAmount => 10;
         public HealPotion(string[] category, ushort charges, ushort cooldown)
         : base(category, charges, cooldown)
         {
