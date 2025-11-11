@@ -2,7 +2,7 @@ using System.Security.Cryptography;
 using Entities;
 using GameEngine;
 using Items;
-using NPC;
+using Entities;
 using Rooms;
 namespace _03_Textadventure
 {
@@ -11,6 +11,9 @@ namespace _03_Textadventure
         public static void Run()
         {
             BaseGame game = new BaseGame("", new string[] { });
+            BaseItem items = new BaseItem([]);
+            Stone stone = new Stone([""], 0, 0);
+            Sword sword = new Sword([""], "");
             game.CreateMap();
             string nextRoomName;
             // Alien alien = new Alien(0, 0, [], 0, "Timmy", "", "", "Vulkan", [], []);
@@ -19,25 +22,36 @@ namespace _03_Textadventure
             // BaseRoom baseRoom = new BaseRoom("", [""], false, false);
             // CursedCastleCourtyard ccc = new CursedCastleCourtyard([""], false, false);
             // MainHall mh = new MainHall([""], false, false);
-            BaseRoom currentRoom = game.Map["Entrance"];
-            Console.WriteLine("Du bist im Raum: " + currentRoom.GetType().Name);
-            while (true)
-            {
-                nextRoomName = currentRoom.AskForRoom();
-                if (nextRoomName != null && game.Map.ContainsKey(nextRoomName))
-                {
-                    currentRoom = game.Map[nextRoomName];
-                    Console.WriteLine("Du bist jetzt im Raum: " + currentRoom.RoomName);
+            string itemName = sword.ItemName;
+            int price = stone.Price;
+            int damage = sword.Damage;
+            stone.Use();
 
-                }
-                else
+            System.Console.WriteLine($"{itemName}; {price}; {damage}");
+           
+           
+           
+           
+           // Move through World put in PlayerCharacter
+           // BaseRoom currentRoom = game.Map["Entrance"];
+            // Console.WriteLine("Du bist im Raum: " + currentRoom.GetType().Name);
+            // while (true)
+            // {
+            //     nextRoomName = currentRoom.AskForRoom();
+            //     if (nextRoomName != null && game.Map.ContainsKey(nextRoomName))
+            //     {
+            //         currentRoom = game.Map[nextRoomName];
+            //         Console.WriteLine("Du bist jetzt im Raum: " + currentRoom.RoomName);
 
-                {
-                    Console.WriteLine("Raum nicht gefunden oder ungültige Eingabe");
+            //     }
+            //     else
 
-                }
+            //     {
+            //         Console.WriteLine("Raum nicht gefunden oder ungültige Eingabe");
 
-            }
+            //     }
+
+            // }
 
             // entrance.AskForRoom();
             // string options = mh.AskForRoom();

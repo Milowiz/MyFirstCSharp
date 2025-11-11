@@ -9,10 +9,11 @@ namespace Items
 {
     public class Interactable : BaseItem
     {
+        public override string ItemName => new string("NoneInteractable");
         string[] UseOption { get; set; }
         string[] DialogOption { get; set; }
-        public Interactable(string[] category, ushort price, string[] useOption, string[] dialogOption)
-        : base(category, price)
+        public Interactable(string[] category, string[] useOption, string[] dialogOption)
+        : base(category)
         {
             UseOption = useOption;
             DialogOption = dialogOption;
@@ -21,50 +22,87 @@ namespace Items
     }
     public class Lever : Interactable
     {
-        public Lever(string[] category, ushort price, string[] useOption, string[] dialogOption)
-        : base(category, price, useOption, dialogOption)
+        public override string ItemName => new string("Lever");
+        public Lever(string[] category, string[] useOption, string[] dialogOption)
+        : base(category, useOption, dialogOption)
         {
 
+        }
+        public override void Use()
+        {
+            IsUsed = true;
+            System.Console.WriteLine("You activated the lever and something happened!");
         }
     }
     public class KeyHole : Interactable
     {
-        public KeyHole(string[] category, ushort price, string[] useOption, string[] dialogOption)
-        : base(category, price, useOption, dialogOption)
+        public override string ItemName => new string("Key Hole");
+
+        public KeyHole(string[] category, string[] useOption, string[] dialogOption)
+        : base(category, useOption, dialogOption)
         {
 
+        }
+        public override void Use()
+        {
+            IsUsed = true;
+            System.Console.WriteLine("You put the key in the keyhole and something happened!");
         }
     }
     public class Barrel : Interactable
     {
-        public Barrel(string[] category, ushort price, string[] useOption, string[] dialogOption)
-        : base(category, price, useOption, dialogOption)
+        public override string ItemName => new string("Barrel");
+        public Barrel(string[] category, string[] useOption, string[] dialogOption)
+        : base(category, useOption, dialogOption)
         {
 
+        }
+        public override void Use()
+        {
+            IsUsed = true;
+            System.Console.WriteLine("You were strong enough to move the Barrel and you see something like an entrance!");
         }
     }
     public class WallTorch : Interactable
     {
-        public WallTorch(string[] category, ushort price, string[] useOption, string[] dialogOption)
-        : base(category, price, useOption, dialogOption)
+        public override string ItemName => new string("Wall Torch");
+        public WallTorch(string[] category, string[] useOption, string[] dialogOption)
+        : base(category, useOption, dialogOption)
         {
 
+        }
+        public override void Use()
+        {
+            IsUsed = true;
+            System.Console.WriteLine("You lit the torch and something happened!");
         }
     }
     public class GoldenCup : Interactable
     {
-        public GoldenCup(string[] category, ushort price, string[] useOption, string[] dialogOption)
-        : base(category, price, useOption, dialogOption)
+        public override string ItemName => new string("Golden Cup");
+        public GoldenCup(string[] category, string[] useOption, string[] dialogOption)
+        : base(category, useOption, dialogOption)
         {
 
+        }
+        public override void Use()
+        {
+            IsUsed = true;
+            System.Console.WriteLine("You hit the Golden Cup and you see how something happened!");
         }
     }
     public class FinalChest : Interactable
     {
-        public FinalChest(string[] category, ushort price, string[] useOption, string[] dialogOption)
-        : base(category, price, useOption, dialogOption)
+        public override string ItemName => new string("Final Chest");
+        public FinalChest(string[] category, string[] useOption, string[] dialogOption)
+        : base(category, useOption, dialogOption)
         {
 
+        }
+        public override void Use()
+        {
+            IsUsed = true;
+            System.Console.WriteLine("You won the game !");
         }
     }
 }

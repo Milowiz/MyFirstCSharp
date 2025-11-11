@@ -9,8 +9,8 @@ namespace Items
     {
         ushort Charges { get; set; }
         ushort Cooldown { get; set; }
-        public Utility(string[] category, ushort price, ushort charges, ushort cooldown)
-        : base(category, price)
+        public Utility(string[] category, ushort charges, ushort cooldown)
+        : base(category)
         {
             Charges = charges;
             Cooldown = cooldown;
@@ -20,32 +20,40 @@ namespace Items
 
     public class HealPotion : Utility
     {
-        public HealPotion(string[] category, ushort price, ushort charges, ushort cooldown)
-        : base(category, price, charges, cooldown)
+        public override string ItemName => new string("Health Potion");
+        public override ushort Price => 5;
+        public HealPotion(string[] category, ushort charges, ushort cooldown)
+        : base(category, charges, cooldown)
         {
 
         }
     }
     public class InvisiblePotion : Utility
     {
-        public InvisiblePotion(string[] category, ushort price, ushort charges, ushort cooldown)
-        : base(category, price, charges, cooldown)
+        public override string ItemName => new string("Invisible Potion");
+        public override ushort Price => 6;
+        public InvisiblePotion(string[] category, ushort charges, ushort cooldown)
+        : base(category, charges, cooldown)
         {
 
         }
     }
         public class StrengthPotion : Utility
     {
-        public StrengthPotion(string[] category, ushort price, ushort charges, ushort cooldown)
-        : base(category, price, charges, cooldown)
+        public override string ItemName => new string("Strength Potion");
+        public override ushort Price => 7;
+        public StrengthPotion(string[] category, ushort charges, ushort cooldown)
+        : base(category, charges, cooldown)
         {
 
         }
     }
     public class Key : Utility
     {
-        public Key(string[] category, ushort price, ushort charges, ushort cooldown)
-        : base(category, price, charges, cooldown)
+        public override string ItemName => new string("Key");
+        public override ushort Price => 4;
+        public Key(string[] category, ushort charges, ushort cooldown)
+        : base(category, charges, cooldown)
         {
 
         }
@@ -53,16 +61,20 @@ namespace Items
 
     public class Lighter : Utility
     {
-        public Lighter(string[] category, ushort price, ushort charges, ushort cooldown)
-        : base(category, price, charges, cooldown)
+        public override string ItemName => new string("Lighter");
+        public override ushort Price => 3;
+        public Lighter(string[] category, ushort charges, ushort cooldown)
+        : base(category, charges, cooldown)
         {
 
         }
     }
     public class Stone : Utility
     {
-        public Stone(string[] category, ushort price, ushort charges, ushort cooldown)
-        : base(category, price, charges, cooldown)
+        public override string ItemName => new string("Stone");
+        public override ushort Price => 2;
+        public Stone(string[] category, ushort charges, ushort cooldown)
+        : base(category, charges, cooldown)
         {
 
         }

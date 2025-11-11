@@ -96,7 +96,7 @@ namespace Rooms
     {
         public override string RoomName => "Dining Room";
         public override string[] From => ["Main Hall"];
-        public override string[] To => ["Main Hall"];
+        public override string[] To => new string[] { "Main Hall" };
         public DiningRoom(string[] lootInRoom, bool alreadyVisited, bool hasNPC)
         : base(lootInRoom, alreadyVisited, hasNPC)
         {
@@ -118,7 +118,7 @@ namespace Rooms
     {
         public override string RoomName => "Tower of Storms";
         public override string[] From => ["Library"];
-        public override string[] To => new string[] { };
+        public override string[] To => new string[] { ""};
 
         public TowerOfStorms(string[] lootInRoom, bool alreadyVisited, bool hasNPC)
         : base(lootInRoom, alreadyVisited, hasNPC)
