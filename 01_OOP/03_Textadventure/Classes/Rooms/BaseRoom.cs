@@ -22,12 +22,12 @@ namespace Rooms
             AlreadyVisited = alreadyVisited;
             HasNPC = hasNPC;
         }
-        public string CheckForRoom()
-        {
-            BaseRoom ccc = new BaseRoom(new[] { "Coin" }, false, false);
-            Console.WriteLine($"Du befindest dich in Raum: {ccc.RoomName}");
-            return ccc.RoomName;
-        }
+        // public string CheckForRoom()
+        // {
+        //     BaseRoom ccc = new BaseRoom(new[] { "Coin" }, false, false);
+        //     Console.WriteLine($"Du befindest dich in Raum: {ccc.RoomName}");
+        //     return ccc.RoomName;
+        // }
         public string AskForRoom()
         {
 

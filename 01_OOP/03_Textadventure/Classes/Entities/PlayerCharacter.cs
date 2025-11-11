@@ -32,7 +32,7 @@ namespace PlayerCharacter
         }
         public void Interact()
         {
-
+            
         }
         public void Test()
         {
