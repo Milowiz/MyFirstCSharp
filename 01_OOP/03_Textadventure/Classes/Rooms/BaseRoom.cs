@@ -6,6 +6,7 @@ using System.Threading.Tasks.Dataflow;
 
 namespace Rooms
 {
+    // Inventar im Raum ode reigene Klasse für Objekt in Raum?
     public class BaseRoom
     {
         public virtual string RoomName => "Unkown Room";
@@ -29,11 +30,17 @@ namespace Rooms
         }
         public string AskForRoom()
         {
-            
+
             int dialogChoice;
+            if (To == null || To.Length == 0)
+            {
+                Console.WriteLine("Es gibt keine erreichbaren Räume.");
+                return null;
+            }
+            System.Console.WriteLine("Du kannst in folgende Räume gehen: ");
             for (int i = 0; i < To.Length; i++)
             {
-                Console.WriteLine($"{i + 1}. {To[i]}");                
+                Console.WriteLine($"{i + 1}. {To[i]}");
             }
             Console.WriteLine("In welchen Raum möchtest du gehen?");
             string playerInput = Console.ReadLine();
@@ -51,27 +58,38 @@ namespace Rooms
         }
     }
 
+    public class Entrance : BaseRoom
+    {
+        public override string RoomName => "Entrance";
+        public override string[] To => new string[] { "Cursed Castle Courtyard" };
+        public Entrance(string[] lootInRoom, bool alreadyVisited, bool hasNPC)
+        : base(lootInRoom, alreadyVisited, hasNPC)
+        {
+
+        }
+    }
     public class CursedCastleCourtyard : BaseRoom
     {
         public override string RoomName => "Cursed Castle Courtyard";
         public override string[] From => ["Entrance", "Garden of Shadows", "Main Hall"];
-        public override string[] To => ["Main Hall", "Garden of Shadows"];
+        public override string[] To => new string[] { "Main Hall", "Garden of Shadows" };
 
         public CursedCastleCourtyard(string[] lootInRoom, bool alreadyVisited, bool hasNPC)
         : base(lootInRoom, alreadyVisited, hasNPC)
         {
-            
+
         }
     }
+
     public class MainHall : BaseRoom
     {
         public override string RoomName => "Main Hall";
-        public override string[] From => ["Cursed Castle Courtyard", "Dining Room", "Library", "Garden Of Shadows"];
-        public override string[] To => ["Cursed Castle Courtyard", "Dining Room", "Library", "Garden Of Shadows"];
+        public override string[] From => ["Cursed Castle Courtyard", "Dining Room", "Library", "Garden of Shadows"];
+        public override string[] To => new string[] { "Cursed Castle Courtyard", "Dining Room", "Library", "Garden of Shadows" };
         public MainHall(string[] lootInRoom, bool alreadyVisited, bool hasNPC)
         : base(lootInRoom, alreadyVisited, hasNPC)
         {
-            
+
         }
     }
     public class DiningRoom : BaseRoom
@@ -82,64 +100,64 @@ namespace Rooms
         public DiningRoom(string[] lootInRoom, bool alreadyVisited, bool hasNPC)
         : base(lootInRoom, alreadyVisited, hasNPC)
         {
-            
+
         }
     }
     public class Library : BaseRoom
     {
         public override string RoomName => "Library";
         public override string[] From => ["Main Hall", "Ritual Room"];
-        public override string[] To => ["Main Hall", "Ritual Room", "Tower of Storms"];
+        public override string[] To => new string[] { "Main Hall", "Ritual Room", "Tower of Storms" };
         public Library(string[] lootInRoom, bool alreadyVisited, bool hasNPC)
         : base(lootInRoom, alreadyVisited, hasNPC)
         {
-            
+
         }
     }
     public class TowerOfStorms : BaseRoom
     {
-        public override string RoomName => "Tower Of Storms";
+        public override string RoomName => "Tower of Storms";
         public override string[] From => ["Library"];
-        public override string[] To => ["Not possible"];
+        public override string[] To => new string[] { };
 
         public TowerOfStorms(string[] lootInRoom, bool alreadyVisited, bool hasNPC)
         : base(lootInRoom, alreadyVisited, hasNPC)
         {
-            
+
         }
     }
     public class RitualRoom : BaseRoom
     {
-        public override string RoomName => "RitualRoom";
+        public override string RoomName => "Ritual Room";
         public override string[] From => ["Library", "Garden of Shadows", "Catacombs"];
-        public override string[] To => ["Library", "Garden of Shadows", "Catacombs"];
+        public override string[] To => new string[] { "Library", "Garden of Shadows", "Catacombs" };
 
         public RitualRoom(string[] lootInRoom, bool alreadyVisited, bool hasNPC)
         : base(lootInRoom, alreadyVisited, hasNPC)
         {
-            
+
         }
     }
     public class GardenOfShadows : BaseRoom
     {
         public override string RoomName => "Garden of Shadows";
         public override string[] From => ["Cursed Castle Courtyard", "Main Hall", "Ritual Room"];
-        public override string[] To => ["Cursed Castle Courtyard", "Main Hall", "Ritual Room"];
+        public override string[] To => new string[] { "Cursed Castle Courtyard", "Main Hall", "Ritual Room" };
         public GardenOfShadows(string[] lootInRoom, bool alreadyVisited, bool hasNPC)
         : base(lootInRoom, alreadyVisited, hasNPC)
         {
-            
+
         }
     }
     public class Catacombs : BaseRoom
     {
         public override string RoomName => "Catacombs";
         public override string[] From => ["Ritual Room"];
-        public override string[] To => ["Ritual Room", "Dragon Cave"];
+        public override string[] To => new string[] { "Ritual Room", "Dragon Cave" };
         public Catacombs(string[] lootInRoom, bool alreadyVisited, bool hasNPC)
         : base(lootInRoom, alreadyVisited, hasNPC)
         {
-            
+
         }
     }
     public class DragonCave : BaseRoom
@@ -151,7 +169,7 @@ namespace Rooms
 
         }
     }
-    
 
-    
+
+
 }
