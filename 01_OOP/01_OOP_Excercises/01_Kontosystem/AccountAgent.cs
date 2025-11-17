@@ -6,7 +6,6 @@ namespace _01_Kontosystem
         {
            Konto konto = new Konto();
            konto.ToString(); 
-
         }
     }
 }
