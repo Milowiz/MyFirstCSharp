@@ -10,6 +10,14 @@ namespace _01_Kontosystem
             
         }
         
+        public void Deposit(float amount, string inputUser)
+        {
+            if(inputUser == User)
+            {
+                Balance = Balance + amount;
+            }
+            
+        }
         public override string ToString()
         {
             return $"Hallo {User}, du hast aktuell {Balance} zur Verfügung!";

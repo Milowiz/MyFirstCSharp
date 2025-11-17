@@ -5,7 +5,8 @@ namespace _01_Kontosystem
         public static void Run()
         {
            Konto konto = new Konto();
-           konto.ToString(); 
+           konto.ToString();
+            
         }
     }
 }
