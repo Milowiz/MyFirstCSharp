@@ -1,27 +1,77 @@
+using System.Numerics;
+using System.Runtime.Intrinsics.X86;
+
 namespace _01_Kontosystem
 {
     public class Konto
     {
-        public float Balance {get; private set;}
-        public  string User {get; set;} = "Thomas";
+        private float Balance { get; set; }
+        private string User { get; set; }
 
         public Konto()
         {
-            
+
         }
-        
-        public void Deposit(float amount, string inputUser)
+
+        public void ShowBalance()
         {
-            if(inputUser == User)
+            Console.WriteLine($"{User} auf deinem Konto stehen dir zur Zeit {Balance}€ zur Verfügung!");
+        }
+        public void Deposit()
+        {
+            System.Console.WriteLine("Wie viel möchtest du einzahlen?");
+            string input = Console.ReadLine() ?? "";
+            if ((!float.TryParse(input, out float vInput)) || vInput <= 0)
             {
-                Balance = Balance + amount;
+                System.Console.WriteLine("Bitte nur einen gültigen Betrag über 0 eingeben !");
             }
-            
+            else
+            {
+                Balance += vInput;
+                System.Console.WriteLine($"Dein neuer Kontostand beträgt: {Balance}€");
+            }
+
         }
-        public override string ToString()
+
+        public void Withdraw()
         {
-            return $"Hallo {User}, du hast aktuell {Balance} zur Verfügung!";
+            Console.WriteLine("Wie viel Geld möchtest du abheben?");
+            string input = Console.ReadLine() ?? "";
+            if ((!float.TryParse(input, out float vInput)) || vInput <= 0)
+            {
+                Console.WriteLine("Bitte nur einen gültigen Betrag eingeben!");
+                return;
+            }
+            else if ((Balance - vInput) <= 0)
+            {
+                Console.WriteLine("Du hast leider zu wenig Geld auf deinem Konto!");
+                return;
+            }
+            else
+            {
+                Balance -= vInput;
+                System.Console.WriteLine($"Dein neuer Kontostand beträgt: {Balance}€");
+            }
         }
+
+
+        public void CreateUser()
+        {
+            Console.WriteLine("User Erstellen: \n");
+            string user = Console.ReadLine() ?? "";
+            User = user;
+            Console.WriteLine($"Der User mit dem Namen {User} wurde erstellt!");
+        }
+        public string GetUserName()
+        {
+            return User;
+        }
+
+
+        // public override string ToString()
+        // {
+        //     return $"Hallo {User}, du hast aktuell {Balance}€ zur Verfügung!";
+        // }
 
 
     }
