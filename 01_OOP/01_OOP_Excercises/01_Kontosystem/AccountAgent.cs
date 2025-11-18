@@ -8,15 +8,12 @@ namespace _01_Kontosystem
     {
         public static void Run()
         {
-            bool isRunning=true;
             Konto konto = new Konto();
             konto.SetFee();
             konto.CreateUser();
-            while(isRunning)
+            while(true)
             {
             Menu(konto);
-            
-            Console.WriteLine(konto.ToString());
             }
         }
 
@@ -26,7 +23,7 @@ namespace _01_Kontosystem
             Console.WriteLine($"------- Konto von: {konto.GetUserName()} --------");
             Console.WriteLine("Was möchtest du tun?");
             Console.WriteLine("[1] Accountbalance anzeigen");
-            Console.WriteLine("[2] Geld ablegen");
+            Console.WriteLine("[2] Geld einzahlen");
             Console.WriteLine("[3] Geld abheben");
             Console.WriteLine("[4] Verlassen");
             string userInput = Console.ReadLine() ?? "";

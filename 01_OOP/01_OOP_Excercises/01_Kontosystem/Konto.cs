@@ -6,9 +6,9 @@ namespace _01_Kontosystem
 {
     public class Konto
     {
-        private float Balance { get; set; } = 1000;
+        private float Balance { get; set; }
         private string User { get; set; }
-        protected float Fee {get; set;}
+        private float Fee {get; set;}
 
         public Konto()
         {
