@@ -1,30 +1,50 @@
-using System.Collections;
-using System.ComponentModel.Design;
-using System.Reflection.Metadata;
 
-namespace _01_Kontosystem
+
+namespace _02_Geometry
 {
-    public class AccountAgent
+    public class CalculateForms
     {
-        public static void Run()
+        public CalculateForms()
         {
-            Konto konto = new Konto();
-            konto.SetFee();
-            konto.CreateUser();
-            while(true)
-            {
-            Menu(konto);
-            }
+
         }
 
-        public static void Menu(Konto konto)
+        public static void Run()
+        {
+           CalculateForms calculate = new CalculateForms();
+           Menu(calculate);
+           calculate.CalculateTotalArea();
+
+        }
+        public void CalculateTotalArea()
+        {
+
+
+            List<IForms> forms = new List<IForms>
+            {
+                new Rectangle(3,5),
+                new Circle(6),
+                new Triangle(6,4,5)
+            };
+
+            double result = 0;
+            foreach (var form in forms)
+            {
+
+                result += form.CalculateArea();
+
+            }
+            Console.WriteLine($"Die Gesamtfläche beträgt: {result.ToString("F2")}");
+
+        }
+        public static void Menu(CalculateForms calculate)
         {
             Console.Clear();
-            Console.WriteLine($"------- Konto von: {konto.GetUserName()} --------");
-            Console.WriteLine("Was möchtest du tun?");
-            Console.WriteLine("[1] Accountbalance anzeigen");
-            Console.WriteLine("[2] Geld einzahlen");
-            Console.WriteLine("[3] Geld abheben");
+            Console.WriteLine($"------- Konto von: {calculate.CalculateTotalArea} --------");
+            Console.WriteLine("Von was möchtest du die Flache und den Umfang berechnen?");
+            Console.WriteLine("[1] Ein Rechteck");
+            Console.WriteLine("[2] Ein Kreis");
+            Console.WriteLine("[3] Ein Dreieck");
             Console.WriteLine("[4] Verlassen");
             string userInput = Console.ReadLine() ?? "";
             float.TryParse(userInput, out float vUserInput);
@@ -54,4 +74,6 @@ namespace _01_Kontosystem
             }
         }
     }
+
+
 }

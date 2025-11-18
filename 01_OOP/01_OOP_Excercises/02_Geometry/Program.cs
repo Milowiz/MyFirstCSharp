@@ -1,2 +1,12 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using _02_Geometry;
+
+namespace _02_Kontosystem
+{
+class Program
+    {
+    static void Main(string[] args)
+        {
+            CalculateForms.Run();
+        }
+    } 
+}
