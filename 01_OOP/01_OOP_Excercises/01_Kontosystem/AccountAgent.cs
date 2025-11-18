@@ -11,9 +11,9 @@ namespace _01_Kontosystem
             Konto konto = new Konto();
             konto.SetFee();
             konto.CreateUser();
-            while(true)
+            while (true)
             {
-            Menu(konto);
+                Menu(konto);
             }
         }
 

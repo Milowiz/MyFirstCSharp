@@ -51,19 +51,19 @@ namespace _02_Geometry
             switch (vUserInput)
             {
                 case 1:
-                    konto.ShowBalance();
+                    calculate.CalculateTotalArea();
                     Thread.Sleep(2000);
                     break;
                 case 2:
-                    konto.Deposit();
+                    calculate.;
                     Thread.Sleep(2000);
                     break;
                 case 3:
-                    konto.Withdraw();
+                    calculate.;
                     Thread.Sleep(2000);
                     break;
                 case 4:
-                    Console.WriteLine($"Tschüss {konto.GetUserName()} bis zum nächsten Mal!");
+                    Console.WriteLine($"Tschüss {calaculate} bis zum nächsten Mal!");
                     Thread.Sleep(2000);
                     Environment.Exit(0);
                     break;
