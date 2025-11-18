@@ -10,6 +10,7 @@ namespace _01_Kontosystem
         {
             bool isRunning=true;
             Konto konto = new Konto();
+            konto.SetFee();
             konto.CreateUser();
             while(isRunning)
             {

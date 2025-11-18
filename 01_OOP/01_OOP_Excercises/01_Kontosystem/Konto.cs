@@ -1,16 +1,18 @@
 using System.Numerics;
+using System.Reflection.Metadata;
 using System.Runtime.Intrinsics.X86;
 
 namespace _01_Kontosystem
 {
     public class Konto
     {
-        private float Balance { get; set; }
+        private float Balance { get; set; } = 1000;
         private string User { get; set; }
+        protected float Fee {get; set;}
 
         public Konto()
         {
-
+            
         }
 
         public void ShowBalance()
@@ -42,14 +44,15 @@ namespace _01_Kontosystem
                 Console.WriteLine("Bitte nur einen gültigen Betrag eingeben!");
                 return;
             }
-            else if ((Balance - vInput) <= 0)
+            else if ((Balance - vInput - Fee) <= 0)
             {
                 Console.WriteLine("Du hast leider zu wenig Geld auf deinem Konto!");
                 return;
             }
             else
             {
-                Balance -= vInput;
+                float res = Balance - vInput - Fee;
+                Balance = res;
                 System.Console.WriteLine($"Dein neuer Kontostand beträgt: {Balance}€");
             }
         }
@@ -65,6 +68,22 @@ namespace _01_Kontosystem
         public string GetUserName()
         {
             return User;
+        }
+        public void SetFee()
+        {
+            System.Console.WriteLine("Wie hoch soll die Bearbeitungsgebühr sein?");
+            string userInput = Console.ReadLine() ?? "";
+            if(float.TryParse(userInput,out float newFee))
+            {
+                Fee = newFee;
+            }
+            else
+            {
+                System.Console.WriteLine("Keine gültige Eingabe!");
+                Environment.Exit(1);
+            }
+
+            
         }
 
 
