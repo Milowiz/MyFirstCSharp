@@ -11,9 +11,9 @@ namespace _02_Geometry
 
         public static void Run()
         {
-           CalculateForms calculate = new CalculateForms();
-           Menu(calculate);
-           calculate.CalculateTotalArea();
+            CalculateForms calculate = new CalculateForms();
+            Menu(calculate);
+            calculate.CalculateTotalArea();
 
         }
         public void CalculateTotalArea()
@@ -45,7 +45,8 @@ namespace _02_Geometry
             Console.WriteLine("[1] Ein Rechteck");
             Console.WriteLine("[2] Ein Kreis");
             Console.WriteLine("[3] Ein Dreieck");
-            Console.WriteLine("[4] Verlassen");
+            Console.WriteLine("[4] Von allen Objekten");
+            Console.WriteLine("[5] Verlassen");
             string userInput = Console.ReadLine() ?? "";
             float.TryParse(userInput, out float vUserInput);
             switch (vUserInput)
@@ -63,7 +64,11 @@ namespace _02_Geometry
                     Thread.Sleep(2000);
                     break;
                 case 4:
-                    Console.WriteLine($"Tschüss {calaculate} bis zum nächsten Mal!");
+                    calculate.;
+                    Thread.Sleep(2000);
+                    break;
+                case 5:
+                    Console.WriteLine($"Tschüss bis zum nächsten Mal!");
                     Thread.Sleep(2000);
                     Environment.Exit(0);
                     break;
@@ -73,6 +78,7 @@ namespace _02_Geometry
                     break;
             }
         }
+        public void Rectangle.
     }
 
 
