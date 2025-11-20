@@ -1,5 +1,3 @@
-
-
 namespace _02_Geometry
 {
     public class CalculateForms
@@ -13,34 +11,14 @@ namespace _02_Geometry
         {
             CalculateForms calculate = new CalculateForms();
             Menu(calculate);
-            calculate.CalculateTotalArea();
-
-        }
-        public void CalculateTotalArea()
-        {
-
-
-            List<IForms> forms = new List<IForms>
-            {
-                new Rectangle(3,5),
-                new Circle(6),
-                new Triangle(6,4,5)
-            };
-
-            double result = 0;
-            foreach (var form in forms)
-            {
-
-                result += form.CalculateArea();
-
-            }
-            Console.WriteLine($"Die Gesamtfläche beträgt: {result.ToString("F2")}");
 
         }
         public static void Menu(CalculateForms calculate)
         {
+            double length=0,width=0;
+            double radius=0;
+            double sideA=0,sideB=0,sideC=0;
             Console.Clear();
-            Console.WriteLine($"------- Konto von: {calculate.CalculateTotalArea} --------");
             Console.WriteLine("Von was möchtest du die Flache und den Umfang berechnen?");
             Console.WriteLine("[1] Ein Rechteck");
             Console.WriteLine("[2] Ein Kreis");
@@ -52,19 +30,35 @@ namespace _02_Geometry
             switch (vUserInput)
             {
                 case 1:
-                    calculate.CalculateTotalArea();
+                    
+                    calculate.RectangleInput(ref length,ref width);
+                    Rectangle rectangle = new Rectangle(length, width);
+                    System.Console.WriteLine($"{rectangle.CalculateArea()}\n{rectangle.CalculatePerimeter()}");
                     Thread.Sleep(2000);
                     break;
                 case 2:
-                    calculate.;
+                    
+                    calculate.CircleInput(ref radius);
+                    Circle circle = new Circle(radius);
+                    System.Console.WriteLine($"{circle.CalculateArea()}\n{circle.CalculatePerimeter()}");
                     Thread.Sleep(2000);
                     break;
                 case 3:
-                    calculate.;
+                    
+                    calculate.TriangleInput(ref sideA,ref sideB, ref sideC);
+                    Triangle triangle = new Triangle(sideA,sideB,sideC);
+                    System.Console.WriteLine($"{triangle.CalculateArea()}\n{triangle.CalculatePerimeter()}");
                     Thread.Sleep(2000);
                     break;
                 case 4:
-                    calculate.;
+                    calculate.RectangleInput(ref length, ref width);
+                    calculate.CircleInput(ref radius);
+                    calculate.TriangleInput(ref sideA, ref sideB, ref sideC);
+                    rectangle = new Rectangle(length,width);
+                    circle = new Circle(radius);
+                    triangle = new Triangle(sideA,sideB,sideC);
+                    double result = rectangle.CalculateArea() + circle.CalculateArea() + triangle.CalculateArea();
+                    System.Console.WriteLine($"Die Gesamtfläche beträgt: {result.ToString("F2")}");
                     Thread.Sleep(2000);
                     break;
                 case 5:
@@ -78,7 +72,85 @@ namespace _02_Geometry
                     break;
             }
         }
-        public void Rectangle.
+        public bool CheckForValidInput(string playerInput)
+        {
+            
+            if (double.TryParse(playerInput, out double input))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        public void RectangleInput(ref double vLength, ref double vWidth)
+        {
+            string lengthInput;
+            string widthInput;
+            double vInput;
+
+            do
+            {
+                Console.WriteLine("Bitte Länge eingeben: ");
+                lengthInput = Console.ReadLine() ?? "";
+            }
+            while (!CheckForValidInput(lengthInput));
+            vLength= double.Parse(lengthInput);
+            do
+            {
+                Console.WriteLine("Bitte Breite eingeben: ");
+                widthInput = Console.ReadLine() ?? "";
+            }
+            while (!CheckForValidInput(widthInput));
+            vWidth = double.Parse(widthInput);
+
+        }
+        public void CircleInput(ref double vRadius)
+        {
+            string radiusInput;
+
+            do
+            {
+                Console.WriteLine("Bitte Radius eingeben: ");
+                radiusInput = Console.ReadLine() ?? "";
+            }
+            while (!CheckForValidInput(radiusInput));
+            vRadius= double.Parse(radiusInput);
+
+        }
+        public void TriangleInput(ref double vSideA, ref double vSideB, ref double vSideC)
+        {
+            string sideAInput;
+            string sideBInput;
+            string sideCInput;
+
+
+            do
+            {
+                Console.WriteLine("Bitte Länge von Seite A eingeben: ");
+                sideAInput = Console.ReadLine() ?? "";
+            }
+            while (!CheckForValidInput(sideAInput));
+            vSideA= double.Parse(sideAInput);
+                        do
+            {
+                Console.WriteLine("Bitte Länge von Seite B eingeben: ");
+                sideBInput = Console.ReadLine() ?? "";
+            }
+            while (!CheckForValidInput(sideBInput));
+            vSideB= double.Parse(sideBInput);
+                        do
+            {
+                Console.WriteLine("Bitte Länge von Seite C eingeben: ");
+                sideCInput = Console.ReadLine() ?? "";
+            }
+            while (!CheckForValidInput(sideCInput));
+            vSideC= double.Parse(sideCInput);
+
+        }
+
     }
 
 
