@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Globalization;
 using System.Runtime.InteropServices;
@@ -10,6 +11,9 @@ namespace _03_ShoppingSale.Cart
         private List<IProduct> _products = new List<IProduct>();
         public static void Run()
         {
+            Taxes.AddRule("Hardware", 10, 0);
+            Taxes.AddRule("Food", 0, 12);
+            Taxes.AddRule("Healthcare", 0, 14);
             ShoppingCart cart = new ShoppingCart();
             while (true)
             {
@@ -20,6 +24,7 @@ namespace _03_ShoppingSale.Cart
 
         public static void Menu(ShoppingCart cart)
         {
+            float total = 0;
 
             Console.Clear();
             Console.WriteLine("Was möchtest du machen?");
@@ -35,21 +40,35 @@ namespace _03_ShoppingSale.Cart
             {
                 case 1:
 
-                    userChoice = cart.UserShopping();
+                    userChoice = cart.GetUserChoice(ProductCatalog.Products, "kaufen");
                     cart.AddProduct(ProductCatalog.Products[userChoice - 1]);
+                    total = cart.GetTotal(cart.GetProducts());
                     System.Console.WriteLine("Der Warenkorb: ");
                     cart.ShowUserChosenList(cart.GetProducts());
+                    System.Console.WriteLine($"Die Zwischensumme(inkl. Steuern) beträgt: {total:F2}€");
                     Thread.Sleep(2500);
                     break;
                 case 2:
-                    cart.ShowUserChosenList(cart.GetProducts());
-                    cart.RemoveProduct(ProductCatalog.Products[userChoice - 1]);
+                    if (cart.GetProducts().Count == 0)
+                    {
+                        System.Console.WriteLine("Dein Warenkorb ist leer!");
+                        Thread.Sleep(1500);
+                        break;
+                    }
+                    int removeChoice = cart.GetUserChoice(cart.GetProducts(), "entfernen");
+                    cart.RemoveProduct(cart.GetProducts()[removeChoice - 1]);
                     System.Console.WriteLine("Der Warenkorb: ");
-                    //cart.ShowUserChosenList(cart.GetProducts());
-                    Thread.Sleep(2500);
+                    cart.ShowUserChosenList(cart.GetProducts());
+                    Thread.Sleep(1500);
                     //cart.ShowUserChosenList(cart.GetProducts());
                     break;
                 case 3:
+                    System.Console.WriteLine("Der Warenkorb: ");
+                    cart.ShowUserChosenList(cart.GetProducts());
+                    total = cart.GetTotal(cart.GetProducts());
+                    System.Console.WriteLine($"Gesamtbetrag(inkl.Steuern): {total:F2}€");
+
+                    Thread.Sleep(2000);
                     break;
                 case 4:
                     break;
@@ -122,38 +141,84 @@ namespace _03_ShoppingSale.Cart
                 counter++;
             }
         }
-        public int UserShopping()
+        public bool HandleInput(ref int number)
         {
             string iNumber;
-            int number;
-            bool wrongInput = true;
+
+            iNumber = Console.ReadLine() ?? "";
+            if (!int.TryParse(iNumber, out number) == true)
+            {
+                System.Console.WriteLine("Falsche Eingabe!");
+                Thread.Sleep(1500);
+                return true;
+
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public int GetUserChoice(IEnumerable<IProduct> products, string outputText) //IEnumerable kann IProduct und Product übrnommen bekommen, aber man muss es dann wieder zu einer Liste casten, damit man z.b. .Count benutzen kann
+        {
+            int number = 0;
+            bool wrongInput;
+            var productList = products.ToList();
+            do
+            {
+                Console.WriteLine($"Was möchtest du {outputText}");
+                for (int i = 0; i < productList.Count; i++)
+                {
+                    var product = productList[i];
+                    System.Console.WriteLine($"[{i + 1}] {product.Name} - Preis: {product.Price}€ - Kategorie: {product.Category} - Menge: {product.Quantity}");
+                }
+                wrongInput = HandleInput(ref number) || number < 1 || number > productList.Count;
+                if (wrongInput)
+                {
+                    System.Console.WriteLine("Ungültige Auswahl!");
+                    Thread.Sleep(1500);
+                }
+
+
+            } while (wrongInput);
+            return number;
+        }
+        public int UserShopping()
+        {
+            int number = 0;
             do
             {
                 Console.WriteLine("Was möchtest du kaufen?");
                 ShowShoppingList();
-                iNumber = Console.ReadLine() ?? "";
-                if (!int.TryParse(iNumber, out number) == true)
-                {
-                    System.Console.WriteLine("Falsche Eingabe!");
-                    Thread.Sleep(1500);
-                    wrongInput = true;
+                HandleInput(ref number);
 
-                }
-                else
-                {
-                    wrongInput = false;
-                }
-            } while (wrongInput);
+            } while (HandleInput(ref number));
             return number;
         }
         public void ShowUserChosenList(List<IProduct> _product)
         {
-            int counter = 0;
+            int counter = 1;
             foreach (var product in _product)
             {
                 System.Console.WriteLine($"[{counter}]{product.Name} - Preis: {product.Price}€ - Kategorie: {product.Category} - Menge: {product.Quantity}");
                 counter++;
             }
+        }
+        public float GetTotal(List<IProduct> _product)
+        {
+            float total = 0;
+            float basePrice = 0;
+            foreach (var product in _product)
+            {
+                basePrice += product.Price * product.Quantity;
+
+                var rule = Taxes.GetRule(product.Category);
+
+                basePrice -= basePrice * (rule.DiscountPercent / 100);
+                basePrice += basePrice * (rule.TaxPercent / 100);
+
+                total += basePrice;
+            }
+            return total;
         }
 
     }
