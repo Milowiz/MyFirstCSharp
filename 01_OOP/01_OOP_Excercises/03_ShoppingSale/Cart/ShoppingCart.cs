@@ -24,14 +24,15 @@ namespace _03_ShoppingSale.Cart
 
         public static void Menu(ShoppingCart cart)
         {
-            float total = 0;
+            double total;
+            double roundedTotal;
 
             Console.Clear();
             Console.WriteLine("Was möchtest du machen?");
             Console.WriteLine("[1] Produkte shoppen");
             Console.WriteLine("[2] Produkte aus Warenkorb entfernen");
             Console.WriteLine("[3] Warenkorb anzeigen");
-            Console.WriteLine("[4] Von allen Objekten");
+            Console.WriteLine("[4] Alles ansehen");
             Console.WriteLine("[5] Verlassen");
             string userInput = Console.ReadLine() ?? "";
             int userChoice = 0;
@@ -43,9 +44,10 @@ namespace _03_ShoppingSale.Cart
                     userChoice = cart.GetUserChoice(ProductCatalog.Products, "kaufen");
                     cart.AddProduct(ProductCatalog.Products[userChoice - 1]);
                     total = cart.GetTotal(cart.GetProducts());
+                    roundedTotal = Math.Round(total,2);
                     System.Console.WriteLine("Der Warenkorb: ");
                     cart.ShowUserChosenList(cart.GetProducts());
-                    System.Console.WriteLine($"Die Zwischensumme(inkl. Steuern) beträgt: {total:F2}€");
+                    System.Console.WriteLine($"Die Zwischensumme(inkl. Steuern) beträgt: {roundedTotal}€");
                     Thread.Sleep(2500);
                     break;
                 case 2:
@@ -63,10 +65,12 @@ namespace _03_ShoppingSale.Cart
                     //cart.ShowUserChosenList(cart.GetProducts());
                     break;
                 case 3:
+                    
                     System.Console.WriteLine("Der Warenkorb: ");
                     cart.ShowUserChosenList(cart.GetProducts());
                     total = cart.GetTotal(cart.GetProducts());
-                    System.Console.WriteLine($"Gesamtbetrag(inkl.Steuern): {total:F2}€");
+                    roundedTotal = Math.Round(total, 2);
+                    Console.WriteLine($"Gesamtbetrag(inkl.Steuern): {roundedTotal}€"); 
 
                     Thread.Sleep(2000);
                     break;
