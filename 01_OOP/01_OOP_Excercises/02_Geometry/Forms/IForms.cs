@@ -4,7 +4,6 @@ namespace _02_Geometry
     {
        public double CalculateArea();
        public double CalculatePerimeter(); 
-       
     }
 
 }

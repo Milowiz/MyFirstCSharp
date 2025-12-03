@@ -1,7 +1,4 @@
-using System.ComponentModel;
-using System.ComponentModel.Design;
-using System.Globalization;
-using System.Runtime.InteropServices;
+using _03_ShoppingSale.BruttoStrategy;
 using _03_ShoppingSale.Products;
 
 namespace _03_ShoppingSale.Cart
@@ -11,10 +8,12 @@ namespace _03_ShoppingSale.Cart
         private List<IProduct> _products = new List<IProduct>();
         public static void Run()
         {
-            Taxes.AddRule("Hardware", 10, 0);
-            Taxes.AddRule("Food", 0, 12);
-            Taxes.AddRule("Healthcare", 0, 14);
+            Taxes.AddRule("Hardware", 18);
+            Taxes.AddRule("Food", 12);
+            Taxes.AddRule("Healthcare", 14);
+
             ShoppingCart cart = new ShoppingCart();
+
             while (true)
             {
                 Menu(cart);
@@ -24,16 +23,16 @@ namespace _03_ShoppingSale.Cart
 
         public static void Menu(ShoppingCart cart)
         {
-            double total;
-            double roundedTotal;
-
+            IDiscount percentDiscount = new PercentDiscount(10); // 15% Rabatt
+            IDiscount minValueDiscount = new RequiredValueDiscount(5, 15); // 5€ Rabatt bei mindestens 15€ Bestellwert
+            IDiscount flatDiscount = new FlatDiscount(5); // 5€ Rabatt, solange nicht kleiner 0
+            IDiscount discount = flatDiscount;
             Console.Clear();
             Console.WriteLine("Was möchtest du machen?");
             Console.WriteLine("[1] Produkte shoppen");
             Console.WriteLine("[2] Produkte aus Warenkorb entfernen");
             Console.WriteLine("[3] Warenkorb anzeigen");
-            Console.WriteLine("[4] Alles ansehen");
-            Console.WriteLine("[5] Verlassen");
+            Console.WriteLine("[4] Verlassen");
             string userInput = Console.ReadLine() ?? "";
             int userChoice = 0;
             float.TryParse(userInput, out float vUserInput);
@@ -43,12 +42,7 @@ namespace _03_ShoppingSale.Cart
 
                     userChoice = cart.GetUserChoice(ProductCatalog.Products, "kaufen");
                     cart.AddProduct(ProductCatalog.Products[userChoice - 1]);
-                    total = cart.GetTotal(cart.GetProducts());
-                    roundedTotal = Math.Round(total,2);
-                    System.Console.WriteLine("Der Warenkorb: ");
-                    cart.ShowUserChosenList(cart.GetProducts());
-                    System.Console.WriteLine($"Die Zwischensumme(inkl. Steuern) beträgt: {roundedTotal}€");
-                    Thread.Sleep(2500);
+                    ShowCartWithSummary(cart, discount);
                     break;
                 case 2:
                     if (cart.GetProducts().Count == 0)
@@ -59,26 +53,14 @@ namespace _03_ShoppingSale.Cart
                     }
                     int removeChoice = cart.GetUserChoice(cart.GetProducts(), "entfernen");
                     cart.RemoveProduct(cart.GetProducts()[removeChoice - 1]);
-                    System.Console.WriteLine("Der Warenkorb: ");
-                    cart.ShowUserChosenList(cart.GetProducts());
-                    Thread.Sleep(1500);
-                    //cart.ShowUserChosenList(cart.GetProducts());
+                    ShowCartWithSummary(cart, discount);
                     break;
                 case 3:
-                    
-                    System.Console.WriteLine("Der Warenkorb: ");
-                    cart.ShowUserChosenList(cart.GetProducts());
-                    total = cart.GetTotal(cart.GetProducts());
-                    roundedTotal = Math.Round(total, 2);
-                    Console.WriteLine($"Gesamtbetrag(inkl.Steuern): {roundedTotal}€"); 
-
-                    Thread.Sleep(2000);
+                    ShowCartWithSummary(cart, discount);
                     break;
                 case 4:
-                    break;
-                case 5:
                     Console.WriteLine($"Tschüss bis zum nächsten Mal!");
-                    Thread.Sleep(2000);
+                    Thread.Sleep(1200);
                     Environment.Exit(0);
                     break;
 
@@ -111,7 +93,6 @@ namespace _03_ShoppingSale.Cart
                 if (existingProduct.Quantity > 1)
                 {
                     existingProduct.Quantity--;
-
                 }
 
                 else
@@ -126,25 +107,23 @@ namespace _03_ShoppingSale.Cart
                     System.Console.WriteLine("Produkt nicht im Warenkorb gefunden!");
                 }
             }
-
         }
+
         public List<IProduct> GetProducts()
         {
             return new List<IProduct>(_products);
         }
-        public void CalculateTotal(List<Product> _product)
-        {
 
-        }
-        public void ShowShoppingList()
+        private decimal CalculateNettoSum(List<IProduct> _product)
         {
-            int counter = 1;
-            foreach (var product in ProductCatalog.Products)
+            decimal basePrice = 0;
+            foreach (var product in _product)
             {
-                System.Console.WriteLine($"[{counter}]{product.Name} - Preis: {product.Price}€ - Kategorie: {product.Category} - Menge: {product.Quantity}");
-                counter++;
+                basePrice += product.Price * product.Quantity;
             }
+            return basePrice;
         }
+
         public bool HandleInput(ref int number)
         {
             string iNumber;
@@ -162,42 +141,26 @@ namespace _03_ShoppingSale.Cart
                 return false;
             }
         }
-        public int GetUserChoice(IEnumerable<IProduct> products, string outputText) //IEnumerable kann IProduct und Product übrnommen bekommen, aber man muss es dann wieder zu einer Liste casten, damit man z.b. .Count benutzen kann
+
+        public int GetUserChoice(IEnumerable<IProduct> products, string outputText) //IEnumerable kann IProduct und Product übernommen bekommen, aber man muss es dann wieder zu einer Liste casten, damit man z.b. .Count benutzen kann
         {
             int number = 0;
             bool wrongInput;
             var productList = products.ToList();
             do
             {
-                Console.WriteLine($"Was möchtest du {outputText}");
+                Console.WriteLine($"Was möchtest du {outputText}?");
+                System.Console.WriteLine("-------------------------------------------");
                 for (int i = 0; i < productList.Count; i++)
                 {
                     var product = productList[i];
                     System.Console.WriteLine($"[{i + 1}] {product.Name} - Preis: {product.Price}€ - Kategorie: {product.Category} - Menge: {product.Quantity}");
                 }
                 wrongInput = HandleInput(ref number) || number < 1 || number > productList.Count;
-                if (wrongInput)
-                {
-                    System.Console.WriteLine("Ungültige Auswahl!");
-                    Thread.Sleep(1500);
-                }
-
-
             } while (wrongInput);
             return number;
         }
-        public int UserShopping()
-        {
-            int number = 0;
-            do
-            {
-                Console.WriteLine("Was möchtest du kaufen?");
-                ShowShoppingList();
-                HandleInput(ref number);
 
-            } while (HandleInput(ref number));
-            return number;
-        }
         public void ShowUserChosenList(List<IProduct> _product)
         {
             int counter = 1;
@@ -207,22 +170,67 @@ namespace _03_ShoppingSale.Cart
                 counter++;
             }
         }
-        public float GetTotal(List<IProduct> _product)
+
+        public Summary CalculateAll(IDiscount discountStrategy)
         {
-            float total = 0;
-            float basePrice = 0;
-            foreach (var product in _product)
+            decimal netto = CalculateNettoSum(_products);
+            decimal discount = discountStrategy.CalculateDiscount(netto);
+            decimal brutto;
+
+            var taxByCategory = new Dictionary<string, decimal>();
+            decimal totalTaxes = 0;
+
+            if((netto-discount)<=0)
             {
-                basePrice += product.Price * product.Quantity;
-
-                var rule = Taxes.GetRule(product.Category);
-
-                basePrice -= basePrice * (rule.DiscountPercent / 100);
-                basePrice += basePrice * (rule.TaxPercent / 100);
-
-                total += basePrice;
+             throw new ArgumentException("Der Betrag ist zu gering um einen Rabatt anzuwenden!");   
             }
-            return total;
+            else
+            {
+                brutto = netto - discount;
+            }
+            foreach (var product in _products)
+            {
+                var tax = Taxes.GetRule(product.Category).TaxPercent;
+                decimal baseNetto = product.Price * product.Quantity * (brutto / netto);
+                decimal taxAmount = Math.Round(baseNetto * tax / 100, 2, MidpointRounding.AwayFromZero);
+                if (taxByCategory.ContainsKey(product.Category))
+                {
+                    taxByCategory[product.Category] += taxAmount;
+                }
+                else
+                {
+                    taxByCategory[product.Category] = taxAmount;
+                }
+                totalTaxes += taxAmount;
+            }
+            decimal total = brutto + totalTaxes;
+            return new Summary(netto, discount, taxByCategory, totalTaxes, total);
+
+        }
+
+        public void DisplayAllCalculations(Summary summary)
+        {
+            System.Console.WriteLine("---------------------------------------------");
+            System.Console.WriteLine($"Zwischensumme netto: {summary.NettoSum:F2}€");
+            System.Console.WriteLine($"Rabatt: {summary.Discount:F2}€");
+            foreach (var taxByCategory in summary.TaxesByCategory)
+            {
+                System.Console.WriteLine($"Steuer: {taxByCategory.Key}: {taxByCategory.Value:F2}€");
+            }
+            System.Console.WriteLine($"Gesamtsteuer: {summary.TotalTaxes:F2}€");
+            System.Console.WriteLine($"Endsumme brutto: {summary.EndTotal:F2}€");
+            System.Console.WriteLine("---------------------------------------------");
+
+        }
+
+        private static void ShowCartWithSummary(ShoppingCart cart, IDiscount discount)
+        {
+            System.Console.WriteLine("Der Warenkorb: ");
+            cart.ShowUserChosenList(cart.GetProducts());
+            Summary summary = cart.CalculateAll(discount);
+            cart.DisplayAllCalculations(summary);
+            System.Console.WriteLine("Taste drücken um fortzufahren ...");
+            Console.ReadKey();
         }
 
     }
