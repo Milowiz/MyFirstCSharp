@@ -18,7 +18,6 @@ namespace _03_ShoppingSale.Cart
             {
                 Menu(cart);
             }
-
         }
 
         public static void Menu(ShoppingCart cart)
@@ -26,7 +25,7 @@ namespace _03_ShoppingSale.Cart
             IDiscount percentDiscount = new PercentDiscount(10); // 15% Rabatt
             IDiscount minValueDiscount = new RequiredValueDiscount(5, 15); // 5€ Rabatt bei mindestens 15€ Bestellwert
             IDiscount flatDiscount = new FlatDiscount(5); // 5€ Rabatt, solange nicht kleiner 0
-            IDiscount discount = flatDiscount;
+            IDiscount discount = percentDiscount;
             Console.Clear();
             Console.WriteLine("Was möchtest du machen?");
             Console.WriteLine("[1] Produkte shoppen");
@@ -39,7 +38,6 @@ namespace _03_ShoppingSale.Cart
             switch (vUserInput)
             {
                 case 1:
-
                     userChoice = cart.GetUserChoice(ProductCatalog.Products, "kaufen");
                     cart.AddProduct(ProductCatalog.Products[userChoice - 1]);
                     ShowCartWithSummary(cart, discount);
@@ -48,7 +46,7 @@ namespace _03_ShoppingSale.Cart
                     if (cart.GetProducts().Count == 0)
                     {
                         System.Console.WriteLine("Dein Warenkorb ist leer!");
-                        Thread.Sleep(1500);
+                        Thread.Sleep(1200);
                         break;
                     }
                     int removeChoice = cart.GetUserChoice(cart.GetProducts(), "entfernen");
@@ -56,6 +54,12 @@ namespace _03_ShoppingSale.Cart
                     ShowCartWithSummary(cart, discount);
                     break;
                 case 3:
+                    if (cart.GetProducts().Count == 0)
+                    {
+                        System.Console.WriteLine("Dein Warenkorb ist leer!");
+                        Thread.Sleep(1200);
+                        break;
+                    }
                     ShowCartWithSummary(cart, discount);
                     break;
                 case 4:
@@ -191,8 +195,8 @@ namespace _03_ShoppingSale.Cart
             foreach (var product in _products)
             {
                 var tax = Taxes.GetRule(product.Category).TaxPercent;
-                decimal baseNetto = product.Price * product.Quantity * (brutto / netto);
-                decimal taxAmount = Math.Round(baseNetto * tax / 100, 2, MidpointRounding.AwayFromZero);
+                decimal adjustedNetAmount = product.Price * product.Quantity * (brutto / netto);
+                decimal taxAmount = Math.Round(adjustedNetAmount * tax / 100, 2, MidpointRounding.AwayFromZero);
                 if (taxByCategory.ContainsKey(product.Category))
                 {
                     taxByCategory[product.Category] += taxAmount;

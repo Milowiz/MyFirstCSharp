@@ -18,7 +18,5 @@ namespace _03_ShoppingSale.BruttoStrategy
             }
             return 0;
         }
-
-
     }
 }
