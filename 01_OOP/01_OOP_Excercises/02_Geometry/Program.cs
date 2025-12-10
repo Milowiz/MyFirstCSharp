@@ -10,3 +10,7 @@ class Program
         }
     } 
 }
+// Richtiges Polymorphism
+// Liste von Formen
+// Vernünftiges TotalArea mit IForms
+// JSON einlesen

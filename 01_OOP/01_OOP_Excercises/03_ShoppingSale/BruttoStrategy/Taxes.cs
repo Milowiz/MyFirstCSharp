@@ -10,7 +10,7 @@ namespace _03_ShoppingSale.BruttoStrategy
         private static List<CategoryRule> Rules = new List<CategoryRule>();
         public static void AddRule(string category, decimal tax)
         {
-            var existing = Rules.FirstOrDefault(r => r.Category == category);
+            CategoryRule existing = Rules.FirstOrDefault(r => r.Category == category); //LINQ = Wie SELECT bei Datenbanken
             if(existing != null)
             {
                 existing.TaxPercent = tax;

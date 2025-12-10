@@ -7,13 +7,13 @@ namespace _01_Kontosystem
     public class Konto
     {
         private float Balance { get; set; }
-        private string User { get; set; }
         private float Fee {get; set;}
 
         public Konto()
         {
             
         }
+
 
         public void ShowBalance()
         {
@@ -58,16 +58,17 @@ namespace _01_Kontosystem
         }
 
 
-        public void CreateUser()
+        public User CreateUser()
         {
             Console.WriteLine("User Erstellen: \n");
-            string user = Console.ReadLine() ?? "";
-            User = user;
-            Console.WriteLine($"Der User mit dem Namen {User} wurde erstellt!");
+            string userInput = Console.ReadLine() ?? "";
+            User user = new User($"{userInput}");
+            Console.WriteLine($"Der User mit dem Namen {user} wurde erstellt!");
+            return user;
         }
-        public string GetUserName()
+        public string GetUserName(User user)
         {
-            return User;
+            return user.Name;
         }
         public void SetFee()
         {

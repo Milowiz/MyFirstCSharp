@@ -8,3 +8,6 @@ class Program
         }
     } 
 }
+
+// User Klasse erstellen
+// Funktionalitäten aufteilen

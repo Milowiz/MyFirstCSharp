@@ -8,19 +8,20 @@ namespace _01_Kontosystem
     {
         public static void Run()
         {
-            Konto konto = new Konto();
+            
+          
             konto.SetFee();
             konto.CreateUser();
             while (true)
             {
-                Menu(konto);
+                Menu(konto, user);
             }
         }
 
-        public static void Menu(Konto konto)
+        public static void Menu(Konto konto, User user)
         {
             Console.Clear();
-            Console.WriteLine($"------- Konto von: {konto.GetUserName()} --------");
+            Console.WriteLine($"------- Konto von: {konto.GetUserName(user)} --------");
             Console.WriteLine("Was möchtest du tun?");
             Console.WriteLine("[1] Accountbalance anzeigen");
             Console.WriteLine("[2] Geld einzahlen");
@@ -43,7 +44,7 @@ namespace _01_Kontosystem
                     Thread.Sleep(2000);
                     break;
                 case 4:
-                    Console.WriteLine($"Tschüss {konto.GetUserName()} bis zum nächsten Mal!");
+                    Console.WriteLine($"Tschüss {konto.GetUserName(user)} bis zum nächsten Mal!");
                     Thread.Sleep(2000);
                     Environment.Exit(0);
                     break;
