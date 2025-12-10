@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shapes>
+  <shape type="Rectangle">
+    <offsetPoint x="0" y="0" />
+    <width>30</width>
+    <height>40</height>
+  </shape>
+  <shape type="Triangle">
+    <offsetPoint x="0" y="40" />
+    <point1 x="0" y="0" />
+    <point2 x="0" y="40" />
+    <point3 x="40" y="0" />
+  </shape>
+  <shape type="Circle">
+    <radius>20</radius>
+    <offsetPoint x="28" y="40" />
+  </shape>
+  <shape type="CircleSector">
+    <offsetPoint x="30" y="40" />
+    <radius>20</radius>
+    <startAngle>270</startAngle>
+    <sweepAngle>90</sweepAngle>
+  </shape>
+  <shape type="CircleSegment">
+    <offsetPoint x="20" y="10" />
+    <radius>14</radius>
+    <startAngle>315</startAngle>
+    <sweepAngle>90</sweepAngle>
+  </shape>
+</shapes>

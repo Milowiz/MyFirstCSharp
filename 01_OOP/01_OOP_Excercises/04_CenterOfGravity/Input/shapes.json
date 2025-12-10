@@ -1,0 +1,36 @@
+{
+    "shapes": [
+        {
+            "type": "Rectangle",
+            "offsetPoint": { "x": 0, "y": 0 },
+            "width": 30,
+            "height": 40
+        },
+        {
+            "type": "Triangle",
+            "offsetPoint": { "x": 0, "y": 40 },
+            "point1": { "x": 0, "y": 0 },
+            "point2": { "x": 0, "y": 40 },
+            "point3": { "x": 40, "y": 0 }
+        },
+        {
+            "type": "Circle",
+            "radius": 20,
+            "offsetPoint": { "x": 28, "y": 40 }
+        },
+        {
+            "type": "CircleSector",
+            "offsetPoint": { "x": 30, "y": 40 },
+            "radius": 20,
+            "startAngle": 270,
+            "sweepAngle": 90
+        },
+        {
+            "type": "CircleSegment",
+            "offsetPoint": { "x": 20, "y": 10 },
+            "radius": 14,
+            "startAngle": 315,
+            "sweepAngle": 90
+        }
+    ]
+}
