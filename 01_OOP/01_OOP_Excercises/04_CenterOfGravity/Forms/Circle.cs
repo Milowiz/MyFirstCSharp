@@ -1,6 +1,4 @@
-using System.Net.Http.Headers;
-
-namespace _02_Geometry
+namespace _04_CenterOfGravity
 {
     public class Circle : IForms
     {

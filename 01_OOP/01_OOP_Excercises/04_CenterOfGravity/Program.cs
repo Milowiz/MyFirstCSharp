@@ -1,6 +1,4 @@
-﻿using _02_Geometry;
-
-namespace _02_Kontosystem
+﻿namespace _04_CenterOfGravity
 {
 class Program
     {

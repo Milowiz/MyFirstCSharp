@@ -1,4 +1,4 @@
-﻿namespace _02_Geometry
+﻿namespace _01_Kontosystem
 {
 class Program
     {

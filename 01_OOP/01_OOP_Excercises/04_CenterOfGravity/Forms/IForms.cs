@@ -1,4 +1,4 @@
-namespace _02_Geometry
+namespace _04_CenterOfGravity
 {
     public interface IForms
     {
