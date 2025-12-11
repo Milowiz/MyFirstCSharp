@@ -89,14 +89,11 @@ namespace _04_CenterOfGravity
                 {
                     return true;
                 }
-
             }
             else
             {
                 return false;
             }
-
-
         }
         public void RectangleInput(ref double vLength, ref double vWidth)
         {
