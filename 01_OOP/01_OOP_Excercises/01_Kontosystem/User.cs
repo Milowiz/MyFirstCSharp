@@ -2,15 +2,19 @@ namespace _01_Kontosystem
 {
     public class User
     {
-        private string Name { get; set; }
+        public string Name { get; private set; }
+        public Konto? Konto { get; private set; }
         public User(string name)
         {
-            Name = name;
+            this.Name = name;
         }
-        
-        public void InitializeKonto()
+
+        public void OpenAccount(float fee = 0, float startBalance = 0)
         {
-        Konto konto = new Konto($"{Name}");
+            if (Konto != null) throw new InvalidOperationException("User hat bereits ein Konto");
+            Konto = new Konto(owner: this, fee, startBalance);
         }
+
+        public override string ToString() => Name;
     }
 }
