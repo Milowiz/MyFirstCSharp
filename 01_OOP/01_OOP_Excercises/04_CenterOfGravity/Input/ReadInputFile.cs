@@ -104,51 +104,53 @@ namespace _04_CenterOfGravity
                                 int.Parse(element.Element("offsetPoint")?.Attribute("x")?.Value ?? "0"),
                                 int.Parse(element.Element("offsetPoint")?.Attribute("y")?.Value ?? "0")
                             ),
-                            "Rectangle" => new Rectangle(
-                                new System.Drawing.Point(
-                                    int.Parse(element.Element("offsetPoint")?.Attribute("x")?.Value ?? "0"),
-                                    int.Parse(element.Element("offsetPoint")?.Attribute("y")?.Value ?? "0")
-                                ),
-                                double.Parse(element.Element("width")?.Value ?? "0"),
-                                 double.Parse(element.Element("height")?.Value ?? "0")
-                            ),
-                            "Triangle" => new Triangle(
+                            double.Parse(element.Element("radius")?.Value ?? "0")
+                        ),
+                        "Rectangle" => new Rectangle(
                             new System.Drawing.Point(
-                                 int.Parse(element.Element("offsetPoint")?.Attribute("x")?.Value ?? "0"),
+                                int.Parse(element.Element("offsetPoint")?.Attribute("x")?.Value ?? "0"),
                                 int.Parse(element.Element("offsetPoint")?.Attribute("y")?.Value ?? "0")
-                                ),
-                                new System.Drawing.Point(
-                                 int.Parse(element.Element("point1")?.Value ?? "0"),
-                                  int.Parse(element.Element("point1")?.Value ?? "0")
+                            ),
+                            double.Parse(element.Element("width")?.Value ?? "0"),
+                             double.Parse(element.Element("height")?.Value ?? "0")
+                        ),
+                        "Triangle" => new Triangle(
+                        new System.Drawing.Point(
+                             int.Parse(element.Element("offsetPoint")?.Attribute("x")?.Value ?? "0"),
+                            int.Parse(element.Element("offsetPoint")?.Attribute("y")?.Value ?? "0")
                             ),
                             new System.Drawing.Point(
-                                 int.Parse(element.Element("point2")?.Value ?? "0"),
-                                  int.Parse(element.Element("point2")?.Value ?? "0")
-                            ),
+                             int.Parse(element.Element("point1")?.Value ?? "0"),
+                              int.Parse(element.Element("point1")?.Value ?? "0")
+                        ),
+                        new System.Drawing.Point(
+                             int.Parse(element.Element("point2")?.Value ?? "0"),
+                              int.Parse(element.Element("point2")?.Value ?? "0")
+                        ),
+                        new System.Drawing.Point(
+                             int.Parse(element.Element("point3")?.Value ?? "0"),
+                              int.Parse(element.Element("point3")?.Value ?? "0")
+                        )
+                        ),
+                        "CircleSector" => new CircleSector(
                             new System.Drawing.Point(
-                                 int.Parse(element.Element("point3")?.Value ?? "0"),
-                                  int.Parse(element.Element("point3")?.Value ?? "0")
-                            )
+                                int.Parse(element.Element("offsetPoint")?.Attribute("x")?.Value ?? "0"),
+                                int.Parse(element.Element("offsetPoint")?.Attribute("y")?.Value ?? "0")
                             ),
-                            "CircleSector" => new CircleSector(
-                                new System.Drawing.Point(
-                                    int.Parse(element.Element("offsetPoint")?.Attribute("x")?.Value ?? "0"),
-                                    int.Parse(element.Element("offsetPoint")?.Attribute("y")?.Value ?? "0")
-                                ),
-                                double.Parse(element.Element("radius")?.Value ?? "0"),
-                                double.Parse(element.Element("startAngle")?.Value ?? "0"),
-                                double.Parse(element.Element("sweepAngle")?.Value ?? "0")
+                            double.Parse(element.Element("radius")?.Value ?? "0"),
+                            double.Parse(element.Element("startAngle")?.Value ?? "0"),
+                            double.Parse(element.Element("sweepAngle")?.Value ?? "0")
+                        ),
+                        "CircleSegment" => new CircleSegment(
+                            new System.Drawing.Point(
+                                int.Parse(element.Element("offsetPoint")?.Attribute("x")?.Value ?? "0"),
+                                int.Parse(element.Element("offsetPoint")?.Attribute("y")?.Value ?? "0")
                             ),
-                            "CircleSegment" => new CircleSegment(
-                                new System.Drawing.Point(
-                                    int.Parse(element.Element("offsetPoint")?.Attribute("x")?.Value ?? "0"),
-                                    int.Parse(element.Element("offsetPoint")?.Attribute("y")?.Value ?? "0")
-                                ),
-                                double.Parse(element.Element("radius")?.Value ?? "0"),
-                                double.Parse(element.Element("startAngle")?.Value ?? "0"),
-                                double.Parse(element.Element("sweepAngle")?.Value ?? "0")
-                            ),
-                            _ => null
+                            double.Parse(element.Element("radius")?.Value ?? "0"),
+                            double.Parse(element.Element("startAngle")?.Value ?? "0"),
+                            double.Parse(element.Element("sweepAngle")?.Value ?? "0")
+                        ),
+                        _ => null
                     };
                     if (forms != null)
                     {
