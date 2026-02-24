@@ -1,11 +1,11 @@
 namespace _04_CenterOfGravity
 {
-    public class Circle : Forms
+    public class CircleSegment : Forms
     {
         private double Radiant { get; set; }
 
 
-        public Circle(double radiant)
+        public CircleSegment(double radiant)
         {
             Radiant = radiant;
         }

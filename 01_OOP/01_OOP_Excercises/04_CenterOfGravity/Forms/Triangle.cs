@@ -1,6 +1,6 @@
 namespace _04_CenterOfGravity
 {
-    public class Triangle : IForms
+    public class Triangle : Forms
     {
         private double SideA { get; set; }
         private double SideB { get; set; }
@@ -15,11 +15,11 @@ namespace _04_CenterOfGravity
          SideC = sideC;   
         }
 
-        public double CalculateArea()
+        public override double CalculateArea()
         {
             return (SideA * SideB)/2;
         }
-        public double CalculatePerimeter()
+        public override double CalculatePerimeter()
         {
             return SideA + SideB + SideC;
         }

@@ -55,7 +55,7 @@ namespace _04_CenterOfGravity
                             )
 
                             ),
-                        "CircleSector" => new CircleSelector(
+                        "CircleSector" => new CircleSector(
                             new System.Drawing.Point(
                                 element.GetProperty("offsetPoint").GetProperty("x").GetInt32(),
                                 element.GetProperty("offsetPoint").GetProperty("y").GetInt32()

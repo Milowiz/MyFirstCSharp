@@ -1,6 +1,6 @@
 namespace _04_CenterOfGravity
 {
-public class Rectangle : IForms
+public class Rectangle : Forms
 {
     private double Length {get;set;}
     private double Height {get;set;}
@@ -12,11 +12,11 @@ public class Rectangle : IForms
             Height = height;
         }
 
-        public double CalculateArea()
+        public override double CalculateArea()
         {
             return Length * Height;
         }
-        public double CalculatePerimeter()
+        public override double CalculatePerimeter()
         {
             return 2*Length+2*Height;
         }
