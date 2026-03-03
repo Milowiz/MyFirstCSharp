@@ -143,7 +143,7 @@ namespace _05_ToDoManager.UI
             try
             {
                 bool ok = await _service.DeleteTodoAsync(id);
-                Console.WriteLine(ok ? "Gelösch." : "ID nicht gefunden.");
+                Console.WriteLine(ok ? "Gelöscht." : "ID nicht gefunden.");
             }
             catch (Exception ex)
             {

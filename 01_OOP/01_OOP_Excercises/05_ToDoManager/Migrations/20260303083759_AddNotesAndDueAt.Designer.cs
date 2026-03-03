@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using _05_ToDoManager.Data;
 
@@ -11,9 +12,11 @@ using _05_ToDoManager.Data;
 namespace _05_ToDoManager.Migrations
 {
     [DbContext(typeof(TodoDbContext))]
-    partial class TodoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260303083759_AddNotesAndDueAt")]
+    partial class AddNotesAndDueAt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,14 +36,8 @@ namespace _05_ToDoManager.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime?>("DueAt")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<bool>("IsDone")
                         .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("longtext");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -49,7 +46,7 @@ namespace _05_ToDoManager.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IsDone", "DueAt");
+                    b.HasIndex("IsDone");
 
                     b.ToTable("Todos", (string)null);
                 });
